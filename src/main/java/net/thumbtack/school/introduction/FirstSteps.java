@@ -24,38 +24,39 @@ public class FirstSteps {
     }
     public int sum(int[] array){
         int Sum=0;
-        for(int i=0; i< array.length; i++){
-           Sum +=array[i];
+
+        for(int elem : array){
+           Sum +=elem;
         }
         return Sum;
     }
     public int mul(int[] array){
         int Mul=1;
-        for(int i=0; i< array.length; i++){
-            Mul *=array[i];
+        for(int elem : array){
+            Mul *=elem;
         }
         return array.length==0?0:Mul;
     }
     public int min(int[] array){
         int min = Integer.MAX_VALUE;
-        for(int i=0; i< array.length; i++){
-            if(array[i] < min)
-            {  min = array[i];}
+        for(int elem : array){
+            if(elem < min)
+            {  min = elem;}
         }
         return min;
     }
     public int max(int[] array){
         int max = Integer.MIN_VALUE;
-        for(int i=0; i< array.length; i++){
-            if(array[i] > max)
-            {  max = array[i];}
+        for(int elem : array){
+            if(elem > max)
+            {  max = elem;}
         }
         return max;
     }
     public double average(int[] array){
         double average=0;
-        for(int i=0; i< array.length; i++){
-           average+=array[i];
+        for(int elem : array){
+           average+=elem;
         }
         average/=array.length;
      return array.length==0?0:average;
@@ -74,15 +75,15 @@ public class FirstSteps {
 
      return  rezult;
     }
-    public void cube(int[]array){
-        for (int i = 0; i < array.length; i++) {
+    public void cube(int[] array){
+        for (int i = 0; i < array.length ; i++){
             array[i]=(int) Math.pow(array[i],3);
-        }
+       }
     }
     public boolean find(int[]array, int value){
         boolean rezult=false;
-        for(int i=0; i< array.length; i++){
-            if (array[i] ==value) {
+        for(int elem : array){
+            if (elem ==value) {
                 rezult=true;
                 break;
             }
