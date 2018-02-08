@@ -78,6 +78,7 @@ public class TestCircle {
         assertTrue(circle.isInside(20, 10));
         assertTrue(circle.isInside(10, 20));
         assertTrue(circle.isInside(15, 15));
+       // assertFalse(circle.isInside(19, 19));
     }
 
     @Test
