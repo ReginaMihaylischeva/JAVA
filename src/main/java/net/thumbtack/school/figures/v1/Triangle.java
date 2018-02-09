@@ -3,17 +3,14 @@ package net.thumbtack.school.figures.v1;
 import java.util.Objects;
 
 public class Triangle {
-    private Point2D point1 = new Point2D();
-    private Point2D point2 = new Point2D();
-    private Point2D point3 = new Point2D();
+    private Point2D point1;
+    private Point2D point2;
+    private Point2D point3;
 
     public Triangle(Point2D point1, Point2D point2, Point2D point3) {
-        this.point1.setX(point1.getX());
-        this.point1.setY(point1.getY());
-        this.point2.setX(point2.getX());
-        this.point2.setY(point2.getY());
-        this.point3.setX(point3.getX());
-        this.point3.setY(point3.getY());
+        this.point1 = point1;
+        this.point2 = point2;
+        this.point3 = point3;
     }
 
     public Point2D getPoint1() {
@@ -59,7 +56,8 @@ public class Triangle {
     }
 
     public double getArea() {
-        return Math.sqrt((getPerimeter() / 2) * (getPerimeter() / 2 - getSide23()) * (getPerimeter() / 2 - getSide13()) * (getPerimeter() / 2 - getSide12()));
+        double p = getPerimeter() / 2;
+        return Math.sqrt(p * (p - getSide23()) * (p - getSide13()) * (p - getSide12()));
     }
 
     public double getPerimeter() {
@@ -67,25 +65,18 @@ public class Triangle {
     }
 
     public boolean isInside(int x, int y) {
-        return (((x - point1.getX()) * (point1.getY() - point2.getY()) - (point1.getX() - point2.getX()) * (y - point1.getY()) > 0 &
-                (x - point2.getX()) * (point2.getY() - point3.getY()) - (point2.getX() - point3.getX()) * (y - point2.getY()) > 0 &
-                (x - point3.getX()) * (point3.getY() - point1.getY()) - (point3.getX() - point1.getX()) * (y - point3.getY()) > 0)
-                ||
-                ((x - point1.getX()) * (point1.getY() - point2.getY()) - (point1.getX() - point2.getX()) * (y - point1.getY()) <= 0 &
-                        (x - point2.getX()) * (point2.getY() - point3.getY()) - (point2.getX() - point3.getX()) * (y - point2.getY()) <= 0 &
-                        (x - point3.getX()) * (point3.getY() - point1.getY()) - (point3.getX() - point1.getX()) * (y - point3.getY()) <= 0)
-        );
+        return ((((point1.getX() <= x && x <= point2.getX())
+                || (point1.getX() <= x && x <= point3.getX())
+                || (point2.getX() <= x && x <= point3.getX()))
+                &&
+                ((point1.getY() <= y && y <= point2.getY()) ||
+                        (point1.getY() <= y && y <= point3.getY()) ||
+                        (point2.getY() <= y && y <= point3.getY()))));
+
     }
 
     public boolean isInside(Point2D point) {
-        return (((point.getX() - point1.getX()) * (point1.getY() - point2.getY()) - (point1.getX() - point2.getX()) * (point.getY() - point1.getY()) > 0 &
-                (point.getX() - point2.getX()) * (point2.getY() - point3.getY()) - (point2.getX() - point3.getX()) * (point.getY() - point2.getY()) > 0 &
-                (point.getX() - point3.getX()) * (point3.getY() - point1.getY()) - (point3.getX() - point1.getX()) * (point.getY() - point3.getY()) > 0)
-                ||
-                ((point.getX() - point1.getX()) * (point1.getY() - point2.getY()) - (point1.getX() - point2.getX()) * (point.getY() - point1.getY()) <= 0 &
-                        (point.getX() - point2.getX()) * (point2.getY() - point3.getY()) - (point2.getX() - point3.getX()) * (point.getY() - point2.getY()) <= 0 &
-                        (point.getX() - point3.getX()) * (point3.getY() - point1.getY()) - (point3.getX() - point1.getX()) * (point.getY() - point3.getY()) <= 0)
-        );
+        return isInside(point.getX(), point.getY());
     }
 
     @Override

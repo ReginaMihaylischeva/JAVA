@@ -3,7 +3,7 @@ package net.thumbtack.school.figures.v1;
 import java.util.Objects;
 
 public class Circle {
-    private Point2D center = new Point2D();
+    private Point2D center;
     private int raduis;
 
     public Circle(Point2D center, int raduis) {
@@ -11,8 +11,7 @@ public class Circle {
     }
 
     public Circle(int xCenter, int yCenter, int radius) {
-        this.center.setX(xCenter);
-        this.center.setY(yCenter);
+        center= new Point2D(xCenter, yCenter);
         this.raduis = radius;
     }
 
@@ -45,8 +44,7 @@ public class Circle {
     }
 
     public void enlarge(int n) {
-        this.center = center;
-        raduis = raduis * n;
+        raduis *=  n;
     }
 
     public double getArea() {

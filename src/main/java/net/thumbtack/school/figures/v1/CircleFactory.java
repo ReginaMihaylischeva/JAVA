@@ -1,12 +1,12 @@
 package net.thumbtack.school.figures.v1;
 
 public class CircleFactory {
-private static int CircleCount;
+private static int circlecount;
 
     public static Circle createCircle(Point2D center, int radius){
-        CircleCount++;
+        circlecount++;
        return  new   Circle(center,radius);
     }
-    public static int getCircleCount(){return CircleCount;}
-    public static void reset(){CircleCount=0;}
+    public static int getCircleCount(){return circlecount;}
+    public static void reset(){circlecount=0;}
 }

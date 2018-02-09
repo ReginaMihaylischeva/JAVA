@@ -3,19 +3,17 @@ package net.thumbtack.school.figures.v1;
 import java.util.Objects;
 
 public class Rectangle {
-    private Point2D leftTop = new Point2D();
-    private Point2D rightBottom = new Point2D();
+    private Point2D leftTop;
+    private Point2D rightBottom;
 
     public Rectangle(Point2D leftTop, Point2D rightBottom) {
-        this(leftTop.getX(), leftTop.getY(), rightBottom.getX(), rightBottom.getY());
+        this(  leftTop.getX(), leftTop.getY(), rightBottom.getX(), rightBottom.getY());
+
     }
 
     public Rectangle(int xLeft, int yTop, int xRight, int yBottom) {
-        this.leftTop.setX(xLeft);
-        this.leftTop.setY(yTop);
-        this.rightBottom.setX(xRight);
-        this.rightBottom.setY(yBottom);
-
+         leftTop= new Point2D(xLeft, yTop);
+         rightBottom=new Point2D(xRight,yBottom);
     }
 
     public Rectangle(int length, int width) {
@@ -56,9 +54,8 @@ public class Rectangle {
     }
 
     public void enlarge(int nx, int ny) {
-        rightBottom.setX((rightBottom.getX() - leftTop.getX()) * nx + leftTop.getX());
-        rightBottom.setY((rightBottom.getY() - leftTop.getY()) * ny + leftTop.getY());
-    }
+        rightBottom.moveRel(getLength() * (nx - 1),getWidth() * (ny - 1));
+     }
 
     public double getArea() {
         return getLength() * getWidth();
@@ -77,19 +74,14 @@ public class Rectangle {
     }
 
     public boolean isIntersects(Rectangle rectangle) {
-        return (isInside((rectangle.getTopLeft().getX()), rectangle.getTopLeft().getY())
-                || isInside((rectangle.getBottomRight().getX()), rectangle.getBottomRight().getY())
-                || ((rectangle.getTopLeft().getY() <= leftTop.getY()) && (leftTop.getY() <= rectangle.getBottomRight().getY()))
-                && ((rectangle.getTopLeft().getX() <= leftTop.getX()) && (leftTop.getX() <= rectangle.getBottomRight().getX())));
+        return (isInside(rectangle.getTopLeft())
+                || isInside(rectangle.getBottomRight())
+                ||(rectangle.isInside(leftTop)));
 
     }
 
     public boolean isInside(Rectangle rectangle) {
-        return (((leftTop.getY() <= rectangle.getTopLeft().getY()) && (rectangle.getTopLeft().getY() <= rightBottom.getY())
-                && (leftTop.getX() <= rectangle.getTopLeft().getX()) && (rectangle.getTopLeft().getX() <= rightBottom.getX()))
-                || ((leftTop.getY() <= rectangle.getBottomRight().getY()) && (rectangle.getBottomRight().getY() <= rightBottom.getY())
-                && (leftTop.getX() <= rectangle.getBottomRight().getX()) && (rectangle.getBottomRight().getX() <= rightBottom.getX())));
-
+       return isInside(rectangle.getTopLeft())||isInside(rectangle.getBottomRight());
     }
 
 
