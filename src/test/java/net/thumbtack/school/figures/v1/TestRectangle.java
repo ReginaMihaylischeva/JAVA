@@ -103,7 +103,7 @@ public class TestRectangle {
 
     @Test
     public void testIsIntersectsRectangle() {
-        Rectangle rect = new Rectangle(10, 20, 30, 40);
+       Rectangle rect = new Rectangle(10, 20, 30, 40);
         assertTrue(rect.isIntersects(new Rectangle(15, 25, 25, 35)));
         assertTrue(rect.isIntersects(new Rectangle(-10, 20, 30, 40)));
         assertTrue(rect.isIntersects(new Rectangle(10, 20, 50, 40)));
@@ -122,6 +122,7 @@ public class TestRectangle {
     @Test
     public void testIsRectangleInsideRectangle() {
         Rectangle rect = new Rectangle(10, 20, 30, 40);
+       // assertFalse(rect.isInside(new Rectangle(0, 0, 20, 30)));
         assertTrue(rect.isInside(new Rectangle(15, 25, 25, 35)));
         assertFalse(rect.isInside(new Rectangle(-40, 20, -30, 40)));
         assertFalse(rect.isInside(new Rectangle(110, 120, 130, 140)));

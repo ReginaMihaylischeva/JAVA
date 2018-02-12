@@ -11,7 +11,7 @@ public class Circle {
     }
 
     public Circle(int xCenter, int yCenter, int radius) {
-        center= new Point2D(xCenter, yCenter);
+        center = new Point2D(xCenter, yCenter);
         this.raduis = radius;
     }
 
@@ -44,7 +44,7 @@ public class Circle {
     }
 
     public void enlarge(int n) {
-        raduis *=  n;
+        raduis *= n;
     }
 
     public double getArea() {

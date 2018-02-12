@@ -7,13 +7,13 @@ public class Rectangle {
     private Point2D rightBottom;
 
     public Rectangle(Point2D leftTop, Point2D rightBottom) {
-        this(  leftTop.getX(), leftTop.getY(), rightBottom.getX(), rightBottom.getY());
-
+        this.leftTop = leftTop;
+        this.rightBottom = rightBottom;
     }
 
     public Rectangle(int xLeft, int yTop, int xRight, int yBottom) {
-         leftTop= new Point2D(xLeft, yTop);
-         rightBottom=new Point2D(xRight,yBottom);
+        leftTop = new Point2D(xLeft, yTop);
+        rightBottom = new Point2D(xRight, yBottom);
     }
 
     public Rectangle(int length, int width) {
@@ -54,8 +54,8 @@ public class Rectangle {
     }
 
     public void enlarge(int nx, int ny) {
-        rightBottom.moveRel(getLength() * (nx - 1),getWidth() * (ny - 1));
-     }
+        rightBottom.moveRel(getLength() * (nx - 1), getWidth() * (ny - 1));
+    }
 
     public double getArea() {
         return getLength() * getWidth();
@@ -76,12 +76,14 @@ public class Rectangle {
     public boolean isIntersects(Rectangle rectangle) {
         return (isInside(rectangle.getTopLeft())
                 || isInside(rectangle.getBottomRight())
-                ||(rectangle.isInside(leftTop)));
+                || (rectangle.isInside(leftTop)) || (rectangle.isInside(rightBottom))
+        );
 
     }
 
     public boolean isInside(Rectangle rectangle) {
-       return isInside(rectangle.getTopLeft())||isInside(rectangle.getBottomRight());
+        return ((isInside(rectangle.leftTop) && isInside(rectangle.rightBottom)));
+
     }
 
 
