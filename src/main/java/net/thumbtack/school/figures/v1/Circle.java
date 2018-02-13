@@ -7,7 +7,8 @@ public class Circle {
     private int raduis;
 
     public Circle(Point2D center, int raduis) {
-        this(center.getX(), center.getY(), raduis);
+        this.center=center;
+        this.raduis=raduis;
     }
 
     public Circle(int xCenter, int yCenter, int radius) {

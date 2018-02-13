@@ -12,8 +12,7 @@ public class Rectangle {
     }
 
     public Rectangle(int xLeft, int yTop, int xRight, int yBottom) {
-        leftTop = new Point2D(xLeft, yTop);
-        rightBottom = new Point2D(xRight, yBottom);
+      this( new Point2D(xLeft, yTop), new Point2D(xRight, yBottom));
     }
 
     public Rectangle(int length, int width) {
