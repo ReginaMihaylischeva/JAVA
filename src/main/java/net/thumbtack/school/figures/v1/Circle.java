@@ -12,8 +12,8 @@ public class Circle {
     }
 
     public Circle(int xCenter, int yCenter, int radius) {
-        center = new Point2D(xCenter, yCenter);
-        this.raduis = radius;
+        this(new Point2D(xCenter, yCenter),radius);
+
     }
 
     public Circle(int radius) {
