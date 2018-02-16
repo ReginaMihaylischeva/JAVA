@@ -13,11 +13,9 @@ public class StringOperations {
     }
 
     public static String getFirstAndLastLetterString(String string) {
-        String newstring = "";
-
-        newstring += string.charAt(0);
-        newstring += string.charAt(string.length() - 1);
-        return newstring;
+        StringBuilder string3 = new StringBuilder();
+        string3.append(string.charAt(0)).append(string.charAt(string.length() - 1));
+        return string3.toString();
     }
 
     public static boolean isSameCharAtPosition(String string1, String string2, int index) {
@@ -33,7 +31,7 @@ public class StringOperations {
     }
 
     public static boolean isSameFirstStringPosition(String string1, String string2, String str) {
-        return string1.lastIndexOf(str) == string2.lastIndexOf(str);
+        return string1.indexOf(str) == string2.indexOf(str);
     }
 
     public static boolean isSameLastStringPosition(String string1, String string2, String str) {
@@ -69,15 +67,11 @@ public class StringOperations {
     }
 
     public static String getCommonPrefix(String string1, String string2) {
-        String string3 = "";
-        StringBuilder sb = new StringBuilder();
         int i = 0;
         while ((i < (Math.min(string1.length(), string2.length())) && isSameCharAtPosition(string1, string2, i))) {
-            sb.append(string1.charAt(i));
             i++;
         }
-        string3 = sb.toString();
-        return string3;
+        return string1.substring(0, i);
     }
 
     public static boolean isPalindrome(String string) {
@@ -100,7 +94,7 @@ public class StringOperations {
 
     public static boolean hasSameSubstring(String string1, String string2, int index, int length) {
         if (index + length <= (Math.min(string1.length(), string2.length()))) {
-            return isEqual(string1.substring(index, index + length - 1), string2.substring(index, index + length - 1));
+            return isEqual(string1.substring(index, index + length), string2.substring(index, index + length));
         } else {
             return false;
         }
@@ -141,11 +135,11 @@ public class StringOperations {
     }
 
     public static StringBuilder makeCsvStringBuilderFromInts(int[] array) {
-    return new StringBuilder(makeCsvStringFromInts(array));
+        return new StringBuilder(makeCsvStringFromInts(array));
     }
 
     public static StringBuilder makeCsvStringBuilderFromDoubles(double[] array) {
-    return new StringBuilder(makeCsvStringFromDoubles(array));
+        return new StringBuilder(makeCsvStringFromDoubles(array));
     }
 
     public static StringBuilder removeCharacters(String string, int[] positions) {
@@ -160,10 +154,10 @@ public class StringOperations {
     public static StringBuilder insertCharacters(String string, int[] positions, char[] characters) {
         StringBuilder string3 = new StringBuilder();
         string3.append(string);
-        int i, j;
-        for (i = 0, j = 0; i < positions.length; i++, j++) {
-            string3.insert(positions[i] + i, characters[j]);
+        for (int i = 0; i < positions.length; i++) {
+            string3.insert(positions[i] + i, characters[i]);
         }
+
         return string3;
     }
 }
