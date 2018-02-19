@@ -11,33 +11,15 @@ public class Cylinder extends Circle {
     }
 
     public Cylinder(int xCenter, int yCenter, int radius, int height) {
-        super(xCenter, yCenter, radius);
-        this.height = height;
+        this (new Point2D(xCenter,yCenter), radius,height);
     }
 
     public Cylinder(int radius, int height) {
-        super(radius);
-        this.height = height;
+        this (0,0,radius,height);
     }
 
     public Cylinder() {
         this(1, 1);
-    }
-
-    public Point2D getCenter() {
-        return super.getCenter();
-    }
-
-    public int getRadius() {
-        return super.getRadius();
-    }
-
-    public void setCenter(Point2D center) {
-        super.setCenter(center);
-    }
-
-    public void setRadius(int radius) {
-        super.setRadius(radius);
     }
 
     public int getHeight() {
@@ -46,22 +28,6 @@ public class Cylinder extends Circle {
 
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public void moveRel(int dx, int dy) {
-        super.moveRel(dx, dy);
-    }
-
-    public void enlarge(int n) {
-        super.enlarge(n);
-    }
-
-    public double getArea() {
-        return super.getArea();
-    }
-
-    public double getPerimeter() {
-        return super.getPerimeter();
     }
 
     public double getVolume() {
