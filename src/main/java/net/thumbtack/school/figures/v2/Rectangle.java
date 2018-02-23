@@ -1,26 +1,28 @@
-package net.thumbtack.school.figures.v1;
+package net.thumbtack.school.figures.v2;
 
 import java.util.Objects;
 
-public class Rectangle {
+public class Rectangle extends Figure {
     private Point2D leftTop;
     private Point2D rightBottom;
 
-    public Rectangle(Point2D leftTop, Point2D rightBottom) {
-        this.leftTop = leftTop;
-        this.rightBottom = rightBottom;
+    public Rectangle(Point2D leftTop, Point2D rightBottom, int color) {
+        this(leftTop.getX(), leftTop.getY(), rightBottom.getX(), rightBottom.getY(), color);
+
     }
 
-    public Rectangle(int xLeft, int yTop, int xRight, int yBottom) {
-      this( new Point2D(xLeft, yTop), new Point2D(xRight, yBottom));
+    public Rectangle(int xLeft, int yTop, int xRight, int yBottom, int color) {
+        leftTop = new Point2D(xLeft, yTop);
+        rightBottom = new Point2D(xRight, yBottom);
+        setColor(color);
     }
 
-    public Rectangle(int length, int width) {
-        this(0, -width, length, 0);
+    public Rectangle(int length, int width, int color) {
+        this(0, -width, length, 0, color);
     }
 
-    public Rectangle() {
-        this(1, 1);
+    public Rectangle(int color) {
+        this(1, 1, color);
     }
 
     public Point2D getTopLeft() {
@@ -91,13 +93,14 @@ public class Rectangle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rectangle rectangle = (Rectangle) o;
-        return Objects.equals(leftTop, rectangle.leftTop) &&
+        return getColor() == rectangle.getColor() &&
+                Objects.equals(leftTop, rectangle.leftTop) &&
                 Objects.equals(rightBottom, rectangle.rightBottom);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(leftTop, rightBottom);
+        return Objects.hash(leftTop, rightBottom, getColor());
     }
 }

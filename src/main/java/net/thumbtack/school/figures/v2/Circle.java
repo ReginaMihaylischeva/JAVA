@@ -1,27 +1,27 @@
-package net.thumbtack.school.figures.v1;
+package net.thumbtack.school.figures.v2;
 
 import java.util.Objects;
 
-public class Circle {
+public class Circle extends Figure {
     private Point2D center;
     private int raduis;
 
-    public Circle(Point2D center, int raduis) {
-        this.center=center;
-        this.raduis=raduis;
+    public Circle(Point2D center, int raduis, int color) {
+        this(center.getX(), center.getY(), raduis, color);
     }
 
-    public Circle(int xCenter, int yCenter, int radius) {
-        this(new Point2D(xCenter, yCenter),radius);
-
+    public Circle(int xCenter, int yCenter, int radius, int color) {
+        center = new Point2D(xCenter, yCenter);
+        this.raduis = radius;
+        setColor(color);
     }
 
-    public Circle(int radius) {
-        this(0, 0, radius);
+    public Circle(int radius, int color) {
+        this(0, 0, radius, color);
     }
 
-    public Circle() {
-        this(1);
+    public Circle(int color) {
+        this(1, color);
     }
 
     public Point2D getCenter() {
@@ -70,13 +70,14 @@ public class Circle {
         if (o == null || getClass() != o.getClass()) return false;
         Circle circle = (Circle) o;
         return raduis == circle.raduis &&
+                getColor() == circle.getColor() &&
                 Objects.equals(center, circle.center);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(center, raduis);
+        return Objects.hash(center, raduis, getColor());
     }
 
 

@@ -1,16 +1,17 @@
-package net.thumbtack.school.figures.v1;
+package net.thumbtack.school.figures.v2;
 
 import java.util.Objects;
 
-public class Triangle {
+public class Triangle extends Figure {
     private Point2D point1;
     private Point2D point2;
     private Point2D point3;
 
-    public Triangle(Point2D point1, Point2D point2, Point2D point3) {
+    public Triangle(Point2D point1, Point2D point2, Point2D point3, int color) {
         this.point1 = point1;
         this.point2 = point2;
         this.point3 = point3;
+        setColor(color);
     }
 
     public Point2D getPoint1() {
@@ -84,7 +85,8 @@ public class Triangle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Triangle triangle = (Triangle) o;
-        return Objects.equals(point1, triangle.point1) &&
+        return getColor() == triangle.getColor() &&
+                Objects.equals(point1, triangle.point1) &&
                 Objects.equals(point2, triangle.point2) &&
                 Objects.equals(point3, triangle.point3);
     }
@@ -92,6 +94,6 @@ public class Triangle {
     @Override
     public int hashCode() {
 
-        return Objects.hash(point1, point2, point3);
+        return Objects.hash(point1, point2, point3, getColor());
     }
 }
