@@ -7,14 +7,16 @@ public class Circle extends Figure {
     private int raduis;
 
     public Circle(Point2D center, int raduis, int color) {
-        this(center.getX(), center.getY(), raduis, color);
+        this.center = center;
+        this.raduis = raduis;
+        setColor(color);
     }
 
     public Circle(int xCenter, int yCenter, int radius, int color) {
-        center = new Point2D(xCenter, yCenter);
-        this.raduis = radius;
-        setColor(color);
+        this(new Point2D(xCenter, yCenter), radius, color);
+
     }
+
 
     public Circle(int radius, int color) {
         this(0, 0, radius, color);

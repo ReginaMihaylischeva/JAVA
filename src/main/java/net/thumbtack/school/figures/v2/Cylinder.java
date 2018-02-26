@@ -40,7 +40,7 @@ public class Cylinder extends Circle {
     }
 
     public boolean isInside(int x, int y, int z) {
-        return (super.isInside(x, y) && z <= getHeight() && z >= getHeight());
+        return (super.isInside(x, y) && z <= getHeight() && z >= 0);
     }
 
     public boolean isInside(Point3D point) {

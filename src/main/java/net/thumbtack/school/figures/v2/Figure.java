@@ -17,7 +17,6 @@ public abstract class Figure implements Colored {
         this.color = color;
     }
 
-
     public int getColor() {
         return color;
     }

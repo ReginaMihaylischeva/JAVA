@@ -7,14 +7,13 @@ public class Rectangle extends Figure {
     private Point2D rightBottom;
 
     public Rectangle(Point2D leftTop, Point2D rightBottom, int color) {
-        this(leftTop.getX(), leftTop.getY(), rightBottom.getX(), rightBottom.getY(), color);
-
+       this.leftTop=leftTop;
+       this.rightBottom=rightBottom;
+        setColor(color);
     }
 
     public Rectangle(int xLeft, int yTop, int xRight, int yBottom, int color) {
-        leftTop = new Point2D(xLeft, yTop);
-        rightBottom = new Point2D(xRight, yBottom);
-        setColor(color);
+        this(new Point2D(xLeft,yTop), new Point2D( xRight, yBottom), color);
     }
 
     public Rectangle(int length, int width, int color) {

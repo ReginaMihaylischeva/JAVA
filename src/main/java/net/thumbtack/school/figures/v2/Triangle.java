@@ -66,14 +66,10 @@ public class Triangle extends Figure {
     }
 
     public boolean isInside(int x, int y) {
-        return ((((point1.getX() <= x && x <= point2.getX())
-                || (point1.getX() <= x && x <= point3.getX())
-                || (point2.getX() <= x && x <= point3.getX()))
-                &&
-                ((point1.getY() <= y && y <= point2.getY()) ||
-                        (point1.getY() <= y && y <= point3.getY()) ||
-                        (point2.getY() <= y && y <= point3.getY()))));
-
+        int a = (x - point1.getX()) * (point1.getY() - point2.getY()) - (point1.getX() - point2.getX()) * (y - point1.getY());
+        int b = (x - point2.getX()) * (point2.getY() - point3.getY()) - (point2.getX() - point3.getX()) * (y - point2.getY());
+        int c = (x - point3.getX()) * (point3.getY() - point1.getY()) - (point3.getX() - point1.getX()) * (y - point3.getY());
+        return ((a > 0 && b > 0 && c > 0) || (a <= 0 && b <= 0 && c <= 0));
     }
 
     public boolean isInside(Point2D point) {
