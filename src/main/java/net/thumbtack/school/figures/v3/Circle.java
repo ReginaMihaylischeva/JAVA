@@ -1,28 +1,52 @@
-package net.thumbtack.school.figures.v2;
+package net.thumbtack.school.figures.v3;
+
+
+import net.thumbtack.school.colors.Color;
+
+import net.thumbtack.school.colors.ColorException;
 
 import java.util.Objects;
+
 
 public class Circle extends Figure {
     private Point2D center;
     private int raduis;
 
-    public Circle(Point2D center, int raduis, int color) {
+    public Circle(Point2D center, int raduis, String color) throws ColorException {
         this.center = center;
         this.raduis = raduis;
         setColor(color);
     }
 
-    public Circle(int xCenter, int yCenter, int radius, int color) {
-        this(new Point2D(xCenter, yCenter), radius, color);
 
+    public Circle(int xCenter, int yCenter, int radius, String color) throws ColorException {
+        this(new Point2D(xCenter, yCenter), radius, color);
     }
 
-
-    public Circle(int radius, int color) {
+    public Circle(int radius, String color) throws ColorException {
         this(0, 0, radius, color);
     }
 
-    public Circle(int color) {
+    public Circle(String color) throws ColorException {
+        this(1, color);
+    }
+
+    public Circle(Point2D center, int raduis, Color color) throws ColorException {
+        this.center = center;
+        this.raduis = raduis;
+        setColor(color);
+    }
+
+    public Circle(int xCenter, int yCenter, int radius, Color color) throws ColorException {
+        this(new Point2D(xCenter, yCenter), radius, color);
+    }
+
+
+    public Circle(int radius, Color color) throws ColorException {
+        this(0, 0, radius, color);
+    }
+
+    public Circle(Color color) throws ColorException {
         this(1, color);
     }
 
