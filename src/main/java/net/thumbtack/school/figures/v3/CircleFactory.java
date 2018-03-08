@@ -9,11 +9,11 @@ public class CircleFactory {
     public static Circle createCircle(Point2D center, int radius, Color color) throws ColorException {
         circlecount++;
         return new Circle(center, radius, color);
+
     }
 
     public static Circle createCircle(Point2D center, int radius, String color) throws ColorException {
-        circlecount++;
-        return new Circle(center, radius, color);
+        return createCircle(center, radius, Color.colorFromString(color));
     }
 
     public static int getCircleCount() {

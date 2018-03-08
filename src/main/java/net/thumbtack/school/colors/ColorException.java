@@ -1,13 +1,13 @@
 package net.thumbtack.school.colors;
 
 public class ColorException extends Exception {
-    public ColorErrorCode ColorErrorCode;
+    public ColorErrorCode colorErrorCode;
 
     public ColorException(ColorErrorCode ColorErrorCode) {
-        this.ColorErrorCode = ColorErrorCode;
+        this.colorErrorCode = ColorErrorCode;
     }
 
     public ColorErrorCode getErrorCode() {
-        return ColorErrorCode;
+        return colorErrorCode;
     }
 }
