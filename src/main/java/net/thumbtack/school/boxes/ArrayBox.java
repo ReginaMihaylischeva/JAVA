@@ -2,7 +2,7 @@ package net.thumbtack.school.boxes;
 
 import net.thumbtack.school.figures.v3.Figure;
 
-public class ArrayBox<T> {
+public class ArrayBox<T extends Figure> {
     private T[] nums;
     private static final double EPS = 1E-6;
 
@@ -27,6 +27,6 @@ public class ArrayBox<T> {
     }
 
     public boolean isSameSize(ArrayBox<? extends Figure> another) {
-        return Math.abs(nums.length - another.nums.length) < EPS;
+        return nums.length == another.nums.length;
     }
 }

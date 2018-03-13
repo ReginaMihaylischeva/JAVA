@@ -31,7 +31,7 @@ public class Box<T extends Figure> implements HasArea {
     }
 
     public static boolean isAreaEqual(Box<? extends Figure> another, Box<? extends Figure> another1) {
-        return Math.abs(another.getArea() - another1.getArea()) < EPS;
+        return  another.isAreaEqual(another1);
     }
 
 }

@@ -40,6 +40,6 @@ public class PairBox<T extends Figure, V extends Figure> implements HasArea {
     }
 
     public static boolean isAreaEqual(PairBox<? extends Figure, ? extends Figure> another, PairBox<? extends Figure, ? extends Figure> another1) {
-        return Math.abs(another.getArea() - another1.getArea()) < EPS;
+       return another.isAreaEqual(another1);
     }
 }
