@@ -1,4 +1,9 @@
-package net.thumbtack.school.figures.v2;
+package net.thumbtack.school.figures.v3;
+
+import net.thumbtack.school.colors.Color;
+import net.thumbtack.school.colors.ColorErrorCode;
+import net.thumbtack.school.colors.ColorException;
+
 
 import java.util.Objects;
 
@@ -6,21 +11,38 @@ public class Rectangle extends Figure {
     private Point2D leftTop;
     private Point2D rightBottom;
 
-    public Rectangle(Point2D leftTop, Point2D rightBottom, int color) {
-       this.leftTop=leftTop;
-       this.rightBottom=rightBottom;
-        setColor(color);
+    public Rectangle(Point2D leftTop, Point2D rightBottom, java.lang.String color) throws ColorException {
+        this(leftTop, rightBottom, Color.colorFromString(color));
     }
 
-    public Rectangle(int xLeft, int yTop, int xRight, int yBottom, int color) {
-        this(new Point2D(xLeft,yTop), new Point2D( xRight, yBottom), color);
+    public Rectangle(int xLeft, int yTop, int xRight, int yBottom, java.lang.String color) throws ColorException {
+        this(new Point2D(xLeft, yTop), new Point2D(xRight, yBottom), color);
     }
 
-    public Rectangle(int length, int width, int color) {
+    public Rectangle(int length, int width, java.lang.String color) throws ColorException {
         this(0, -width, length, 0, color);
     }
 
-    public Rectangle(int color) {
+    public Rectangle(java.lang.String color) throws ColorException {
+        this(1, 1, color);
+    }
+
+
+    public Rectangle(Point2D leftTop, Point2D rightBottom, Color color) throws ColorException {
+        this.leftTop = leftTop;
+        this.rightBottom = rightBottom;
+        setColor(color);
+    }
+
+    public Rectangle(int xLeft, int yTop, int xRight, int yBottom, Color color) throws ColorException {
+        this(new Point2D(xLeft, yTop), new Point2D(xRight, yBottom), color);
+    }
+
+    public Rectangle(int length, int width, Color color) throws ColorException {
+        this(0, -width, length, 0, color);
+    }
+
+    public Rectangle(Color color) throws ColorException {
         this(1, 1, color);
     }
 
