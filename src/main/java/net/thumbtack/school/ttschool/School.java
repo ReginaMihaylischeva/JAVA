@@ -48,22 +48,20 @@ public class School {
     }
 
     public void removeGroup(Group group) throws TrainingException {
-        if (!groups.contains(group))
+        if (!groups.remove(group))
             throw new TrainingException(TrainingErrorCode.GROUP_NOT_FOUND);
         groups.remove(group);
     }
 
     public void removeGroup(String name) throws TrainingException {
-        int i = 0;
         for (Group group1 : groups) {
             if (group1.getName().equals(name)) {
                 groups.remove(group1);
-                i++;
+                return;
             }
+
         }
-        if (i == 0) {
-            throw new TrainingException(TrainingErrorCode.GROUP_NOT_FOUND);
-        }
+        throw new TrainingException(TrainingErrorCode.GROUP_NOT_FOUND);
 
     }
 

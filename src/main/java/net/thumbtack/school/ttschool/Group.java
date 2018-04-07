@@ -89,12 +89,8 @@ public class Group {
     }
 
     public void rotateTraineeList(int positions) {
-        if (positions > 0) {
-            Collections.rotate(traines, positions);
-        } else {
-            reverseTraineeList();
-            Collections.rotate(traines, positions * (-1));
-        }
+        Collections.rotate(traines, positions);
+
     }
 
     public List<Trainee> getTraineesWithMaxRating() throws TrainingException {
