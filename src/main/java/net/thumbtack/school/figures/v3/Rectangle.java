@@ -12,9 +12,7 @@ public class Rectangle extends Figure {
     private Point2D rightBottom;
 
     public Rectangle(Point2D leftTop, Point2D rightBottom, java.lang.String color) throws ColorException {
-        this.leftTop = leftTop;
-        this.rightBottom = rightBottom;
-        setColor(color);
+        this(leftTop, rightBottom, Color.colorFromString(color));
     }
 
     public Rectangle(int xLeft, int yTop, int xRight, int yBottom, java.lang.String color) throws ColorException {

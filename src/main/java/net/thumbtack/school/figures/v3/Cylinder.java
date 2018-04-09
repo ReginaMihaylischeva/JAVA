@@ -9,20 +9,15 @@ public class Cylinder extends Circle {
     private int height;
 
     public Cylinder(Point2D center, int radius, int height, String color) throws ColorException {
-        super(center, radius, color);
-        this.height = height;
+        this(center, radius, height, Color.colorFromString(color));
     }
 
     public Cylinder(int xCenter, int yCenter, int radius, int height, String color) throws ColorException {
-        super(xCenter, yCenter, radius, color);
-        this.height = height;
-
+        this(new Point2D(xCenter, yCenter), radius, height, color);
     }
 
     public Cylinder(int radius, int height, String color) throws ColorException {
-        super(radius, color);
-        this.height = height;
-
+        this(0, 0, radius, height, color);
     }
 
     public Cylinder(String color) throws ColorException {
@@ -32,18 +27,14 @@ public class Cylinder extends Circle {
     public Cylinder(Point2D center, int radius, int height, Color color) throws ColorException {
         super(center, radius, color);
         this.height = height;
-
     }
 
     public Cylinder(int xCenter, int yCenter, int radius, int height, Color color) throws ColorException {
-        super(xCenter, yCenter, radius, color);
-        this.height = height;
-
+        this(new Point2D(xCenter, yCenter), radius, height, color);
     }
 
     public Cylinder(int radius, int height, Color color) throws ColorException {
-        super(radius, color);
-        this.height = height;
+        this(0, 0, radius, height, color);
 
     }
 
