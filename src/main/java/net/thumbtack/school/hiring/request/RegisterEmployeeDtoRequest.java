@@ -6,7 +6,7 @@ public class RegisterEmployeeDtoRequest {
     private String firstName;
     private String lastName;
     private String middlename;
-    private String age;
+    private int age;
     private String email;
     private String login;
     private String password;
@@ -19,7 +19,7 @@ public class RegisterEmployeeDtoRequest {
         this.email = email;
     }
 
-    public RegisterEmployeeDtoRequest(String firstName, String login, String password, String lastName, String middlename, String age, String email) {
+    public RegisterEmployeeDtoRequest(String firstName, String login, String password, String lastName, String middlename, int age, String email) {
         setEmail(email);
         setFirstName(firstName);
         setPassword(password);
@@ -41,7 +41,7 @@ public class RegisterEmployeeDtoRequest {
         this.middlename = middlename;
     }
 
-    private void setAge(String age) {
+    private void setAge(int age) {
         this.age = age;
     }
 
@@ -55,7 +55,7 @@ public class RegisterEmployeeDtoRequest {
         return middlename;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 

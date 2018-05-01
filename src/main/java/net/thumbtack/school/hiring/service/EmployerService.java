@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import net.thumbtack.school.hiring.Models.DeleteEmployer;
 import net.thumbtack.school.hiring.Models.Employer;
 import net.thumbtack.school.hiring.Models.Vacancy;
+import net.thumbtack.school.hiring.Models.getSummary;
 import net.thumbtack.school.hiring.daoimpl.DAO;
 import net.thumbtack.school.hiring.request.*;
 import net.thumbtack.school.hiring.response.RegisterEmployerDtoResponse;
@@ -54,15 +55,16 @@ public class EmployerService {
         if (getSummaryDtoRequest.validate().equals("error")) {
             return gson.toJson("error");
         }
-        Requirements requirements = new Requirements(
-
-                getSummaryDtoRequest.getNameRequirement(),
+        getSummary requirements = new getSummary(
+                getSummaryDtoRequest.getRequirements(),
+                getSummaryDtoRequest.getToken(),
                 getSummaryDtoRequest.isCompulsion(),
-                getSummaryDtoRequest.getLevelProficiency()
+                getSummaryDtoRequest.isCheckAllRequirements()
+
 
 
         );
-        return gson.toJson("");
+        return gson.toJson( dao.getSummary(requirements));
     }
 
     public String deleteEmployer(String requestJsonStringdeleteEmployer) {

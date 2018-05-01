@@ -4,12 +4,12 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String middlename;
-    private String age;
+    private int age;
     private String email;
     private String login;
     private String password;
 
-    public Employee(String firstName, String login, String password, String lastName, String middlename, String age, String email) {
+    public Employee(String firstName, String login, String password, String lastName, String middlename, int age, String email) {
         setEmail(email);
         setFirstName(firstName);
         setPassword(password);
@@ -36,7 +36,7 @@ public class Employee {
         this.middlename = middlename;
     }
 
-    private void setAge(String age) {
+    private void setAge(int age) {
         this.age = age;
     }
 
@@ -49,7 +49,7 @@ public class Employee {
         return middlename;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 

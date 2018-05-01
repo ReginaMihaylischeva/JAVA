@@ -33,7 +33,7 @@ public class DAO implements EmployeeDao, EmployerDao {
         database.deleteSummary(summary);
     }
 
-    public ArrayDeque<Vacancy> getVacancies(getVacancies GetVacancies) {
+    public ArrayDeque<getVacanciesResponse> getVacancies(getVacancies GetVacancies) {
         return database.getVacancies(GetVacancies);
     }
 
@@ -57,7 +57,7 @@ public class DAO implements EmployeeDao, EmployerDao {
     public ArrayList<Vacancy> AllVacancies(AllVacancies vacancies) {
         return database.allVacancies(vacancies);
     }
-    public ArrayDeque<List<Skills>> getSummary(getSummary requirement){
+    public ArrayDeque<getSummaryResponse> getSummary(getSummary requirement){
         return  database.getSummary(requirement);
     }
 }

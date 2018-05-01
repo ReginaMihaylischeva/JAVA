@@ -14,6 +14,6 @@ public interface EmployerDao {
     void deleteEmployer(DeleteEmployer employer);
     void addVacancy(Vacancy vacancy);
     void deleteVacancy(Vacancy vacancy);
-    ArrayDeque<List<Skills>> getSummary(getSummary requirement);
+    ArrayDeque<getSummaryResponse> getSummary(getSummary requirement);
    // ArrayList<Summary> AllSummary(AllSummary summary);
 }

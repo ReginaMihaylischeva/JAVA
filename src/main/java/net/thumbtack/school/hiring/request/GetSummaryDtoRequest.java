@@ -1,8 +1,21 @@
 package net.thumbtack.school.hiring.request;
 
+import java.util.List;
+
 public class GetSummaryDtoRequest {
-    private String  nameRequirement;
-    private int levelProficiency;
+    private List<Requirements> requirements;
+    private boolean  checkAllRequirements;
+
+    public boolean isCheckAllRequirements() {
+        return checkAllRequirements;
+    }
+
+    private void setCheckAllRequirements(boolean checkAllRequirements) {
+        this.checkAllRequirements = checkAllRequirements;
+    }
+
+    private boolean compulsion;
+    private String token;
 
     public boolean isCompulsion() {
         return compulsion;
@@ -12,29 +25,27 @@ public class GetSummaryDtoRequest {
         this.compulsion = compulsion;
     }
 
-    private boolean compulsion;
-    public String getNameRequirement() {
-        return nameRequirement;
+    public List<Requirements> getRequirements() {
+        return requirements;
     }
 
-    private void setNameRequirement(String nameRequirement) {
-        this.nameRequirement = nameRequirement;
+    private void setRequirements(List<Requirements> skills) {
+        this.requirements = skills;
     }
 
-
-
-    public int getLevelProficiency() {
-        return levelProficiency;
+    private void setToken(String token) {
+        this.token = token;
     }
 
-    private void setLevelProficiency(int levelProficiency) {
-        this.levelProficiency = levelProficiency;
+    public String getToken() {
+        return token;
     }
 
-    public GetSummaryDtoRequest(String nameRequirement, int levelProficiency,boolean compulsion){
+    public GetSummaryDtoRequest(List<Requirements> requirements, String token,boolean compulsion,boolean checkAllRequirements) {
+        setRequirements(requirements);
         setCompulsion(compulsion);
-        setLevelProficiency(levelProficiency);
-        setNameRequirement(nameRequirement);
+        setToken(token);
+        setCheckAllRequirements(checkAllRequirements);
     }
     public String validate(){return  "error";}
 }

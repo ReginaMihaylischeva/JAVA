@@ -30,10 +30,10 @@ public class DataBase {
 
 
     //ну такое
-    public ArrayDeque<Vacancy> getVacancies(getVacancies GetVacancies) {
+    public ArrayDeque<getVacanciesResponse> getVacancies(getVacancies GetVacancies) {
         int count = 0;
         int oldCount = 0;
-        ArrayDeque<Vacancy> NewList = new ArrayDeque<>();
+        ArrayDeque<getVacanciesResponse> NewList = new ArrayDeque<>();
         for (Vacancy vacancies : dataBaseVacancies.values()) {
             for (Skills skills : GetVacancies.getSkills()) {
                 for (Requirements Requirement : vacancies.getRequirements()) {
@@ -53,14 +53,43 @@ public class DataBase {
 
 
             }
+
             if (count == GetVacancies.getSkills().size() & GetVacancies.isCheckAllSkills()) {
-                NewList.add(vacancies);
+                Object firstKey = dataBaseVacancies.keySet().toArray()[0];
+                Object valueForFirstKey = dataBaseVacancies.get(firstKey.toString());
+                Employer sdf=dataBaseEmployer.get(valueForFirstKey.toString());
+                getVacanciesResponse v=new getVacanciesResponse(
+
+                        sdf.getFirstName(),
+                        sdf.getLastName(),
+                        sdf.getMiddlename(),
+                        sdf.getEmail(),
+                        vacancies,
+                        sdf.getAddress(),
+                        sdf.getCompanyName()
+
+                );
+                NewList.add(v);
             }
             if (count != 0 & !GetVacancies.isCheckAllSkills()) {
+                Object firstKey = dataBaseVacancies.keySet().toArray()[0];
+                Object valueForFirstKey = dataBaseVacancies.get(firstKey.toString());
+                Employer sdf=dataBaseEmployer.get(valueForFirstKey.toString());
+                getVacanciesResponse v=new getVacanciesResponse(
+
+                        sdf.getFirstName(),
+                        sdf.getLastName(),
+                        sdf.getMiddlename(),
+                        sdf.getEmail(),
+                        vacancies,
+                        sdf.getAddress(),
+                        sdf.getCompanyName()
+
+                );
                 if (oldCount > count) {
-                    NewList.addLast(vacancies);
+                    NewList.addLast(v);
                 } else {
-                    NewList.addFirst(vacancies);
+                    NewList.addFirst(v);
                 }
                 oldCount = count;
             }
@@ -94,10 +123,14 @@ public class DataBase {
     public void deleteVacancy(Vacancy vacancy) {
         dataBaseVacancies.remove(vacancy.getToken(), vacancy);
     }
+
     public   ArrayList<Vacancy>   allVacancies(AllVacancies vacancies){
         return new ArrayList<>(dataBaseVacancies.values());}
-    public  ArrayDeque<List<Skills>> getSummary(getSummary requirements){
-        ArrayDeque<List<Skills>> NewList = new ArrayDeque<>();
+
+
+    public  ArrayDeque<getSummaryResponse> getSummary(getSummary requirements){
+        ArrayDeque<getSummaryResponse> NewList = new ArrayDeque<>();
+
         int count = 0;
         int oldCount = 0;
         for (List<Skills> skills : dataBaseSummary.values()){
@@ -121,13 +154,37 @@ public class DataBase {
 
             }
             if (count == requirements.getRequirements().size() & requirements.isCheckAllRequirements()) {
-                NewList.add(skills);
+                Object firstKey = dataBaseSummary.keySet().toArray()[0];
+                Object valueForFirstKey = dataBaseSummary.get(firstKey.toString());
+                Employee sdf=dataBaseEmployee.get(valueForFirstKey.toString());
+                getSummaryResponse v=new getSummaryResponse(
+
+                        sdf.getFirstName(),
+                        sdf.getLastName(),
+                        sdf.getMiddlename(),
+                        sdf.getEmail(),
+                         skills,
+                        sdf.getAge()
+                );
+                NewList.add(v);
             }
             if (count != 0 & !requirements.isCheckAllRequirements()) {
+                Object firstKey = dataBaseSummary.keySet().toArray()[0];
+                Object valueForFirstKey = dataBaseSummary.get(firstKey.toString());
+                Employee sdf=dataBaseEmployee.get(valueForFirstKey.toString());
+                getSummaryResponse v=new getSummaryResponse(
+
+                        sdf.getFirstName(),
+                        sdf.getLastName(),
+                        sdf.getMiddlename(),
+                        sdf.getEmail(),
+                        skills,
+                        sdf.getAge()
+                );
                 if (oldCount > count) {
-                    NewList.addLast(skills);
+                    NewList.addLast(v);
                 } else {
-                    NewList.addFirst(skills);
+                    NewList.addFirst(v);
                 }
                 oldCount = count;
             }
@@ -135,4 +192,5 @@ public class DataBase {
         }
        return NewList;
     }
+
 }

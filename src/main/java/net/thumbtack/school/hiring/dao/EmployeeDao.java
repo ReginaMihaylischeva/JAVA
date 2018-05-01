@@ -12,7 +12,7 @@ public interface EmployeeDao {
     void delete(DeleteEmployee employee);
     void addSummary(Summary summary);
     void deleteSummary(Summary summary);
-    ArrayDeque<Vacancy> getVacancies(getVacancies GetVacancies);
+    ArrayDeque<getVacanciesResponse> getVacancies(getVacancies GetVacancies);
     ArrayList<Vacancy> AllVacancies(AllVacancies vacancies);
 
 }
