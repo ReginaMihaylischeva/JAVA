@@ -1,19 +1,21 @@
 package net.thumbtack.school.hiring.request;
 
+import java.util.List;
+
 public class deleteSummaryDtoRequest {
-    private String machineLanguage;
-    private int rating;
+    private List<Skills> skills;
+
     private String token;
 
-    public int getRating() {
-        return rating;
+    public List<Skills> getSkills() {
+        return skills;
     }
 
-    private void setRating(int rating) {
-        this.rating = rating;
+    private void setSkills(List<Skills> skills) {
+        this.skills = skills;
     }
 
-    public void setToken(String token) {
+    private void setToken(String token) {
         this.token = token;
     }
 
@@ -21,21 +23,10 @@ public class deleteSummaryDtoRequest {
         return token;
     }
 
-    public deleteSummaryDtoRequest(String machineLanguage, int rating, String token) {
-        setRating(rating);
-        setMachineLanguage(machineLanguage);
+    public deleteSummaryDtoRequest(List<Skills> skills, String token) {
+        setSkills(skills);
 
         setToken(token);
-    }
-
-
-    private void setMachineLanguage(String machineLanguage) {
-        this.machineLanguage = machineLanguage;
-    }
-
-
-    public String getMachineLanguage() {
-        return machineLanguage;
     }
 
 

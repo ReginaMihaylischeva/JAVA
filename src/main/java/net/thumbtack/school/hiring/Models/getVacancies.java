@@ -1,13 +1,11 @@
-package net.thumbtack.school.hiring.request;
+package net.thumbtack.school.hiring.Models;
+
+import net.thumbtack.school.hiring.request.Skills;
 
 import java.util.List;
 
-public class getVacanciesDtoRequest {
+public class getVacancies {
     private List<Skills> skills;
-    private boolean compulsion;
-    private String token;
-    private boolean  checkAllSkills;
-
 
     public boolean isCheckAllSkills() {
         return checkAllSkills;
@@ -16,6 +14,11 @@ public class getVacanciesDtoRequest {
     private void setCheckAllSkills(boolean checkAllSkills) {
         this.checkAllSkills = checkAllSkills;
     }
+
+    private boolean compulsion;
+    private String token;
+    private boolean  checkAllSkills;
+
     public boolean isCompulsion() {
         return compulsion;
     }
@@ -40,14 +43,10 @@ public class getVacanciesDtoRequest {
         return token;
     }
 
-    public getVacanciesDtoRequest(List<Skills> skills, String token,boolean compulsion) {
+    public getVacancies(List<Skills> skills, String token,boolean compulsion,boolean checkAllSkills) {
         setSkills(skills);
         setCompulsion(compulsion);
         setToken(token);
         setCheckAllSkills(checkAllSkills);
-
-    }
-    public String validate() {
-        return "error";
     }
 }

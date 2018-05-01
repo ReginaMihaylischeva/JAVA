@@ -1,17 +1,19 @@
 package net.thumbtack.school.hiring.request;
 
+import java.util.UUID;
+
 public class deleteEmployerDtoRequest {
-    private String token;
+    private UUID token;
 
 
-    public String getToken() {
+    public UUID getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(UUID token) {
         this.token = token;
     }
-    private deleteEmployerDtoRequest(String token){
+    private deleteEmployerDtoRequest(UUID token){
 
         setToken(token);
     }

@@ -1,17 +1,8 @@
 package net.thumbtack.school.hiring.request;
 
-public class Requirements {
+public class GetSummaryDtoRequest {
     private String  nameRequirement;
-    private boolean compulsion;
     private int levelProficiency;
-
-    public String getNameRequirement() {
-        return nameRequirement;
-    }
-
-    private void setNameRequirement(String nameRequirement) {
-        this.nameRequirement = nameRequirement;
-    }
 
     public boolean isCompulsion() {
         return compulsion;
@@ -21,6 +12,17 @@ public class Requirements {
         this.compulsion = compulsion;
     }
 
+    private boolean compulsion;
+    public String getNameRequirement() {
+        return nameRequirement;
+    }
+
+    private void setNameRequirement(String nameRequirement) {
+        this.nameRequirement = nameRequirement;
+    }
+
+
+
     public int getLevelProficiency() {
         return levelProficiency;
     }
@@ -29,9 +31,10 @@ public class Requirements {
         this.levelProficiency = levelProficiency;
     }
 
-    public Requirements(String nameRequirement,boolean compulsion, int levelProficiency){
+    public GetSummaryDtoRequest(String nameRequirement, int levelProficiency,boolean compulsion){
         setCompulsion(compulsion);
         setLevelProficiency(levelProficiency);
         setNameRequirement(nameRequirement);
     }
+    public String validate(){return  "error";}
 }

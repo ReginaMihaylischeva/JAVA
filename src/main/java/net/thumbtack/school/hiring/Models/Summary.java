@@ -1,17 +1,22 @@
 package net.thumbtack.school.hiring.Models;
 
-public class Summary {
+import javafx.scene.control.Skin;
+import net.thumbtack.school.hiring.request.Skills;
 
-    private String machineLanguage;
-    private int rating;
+import java.util.List;
+import java.util.Set;
+
+public class Summary {
+private List<Skills> skills;
+
     private String token;
 
-    public int getRating() {
-        return rating;
+    public List<Skills> getSkills() {
+        return skills;
     }
 
-    private void setRating(int rating) {
-        this.rating = rating;
+    private void setSkills(List<Skills> skills) {
+        this.skills = skills;
     }
 
     private void setToken(String token) {
@@ -22,21 +27,11 @@ public class Summary {
         return token;
     }
 
-    public Summary(String machineLanguage, int rating, String token) {
-        setRating(rating);
-        setMachineLanguage(machineLanguage);
+    public Summary(List<Skills> skills, String token) {
+        setSkills(skills);
 
         setToken(token);
     }
 
-
-    private void setMachineLanguage(String machineLanguage) {
-        this.machineLanguage = machineLanguage;
-    }
-
-
-    public String getMachineLanguage() {
-        return machineLanguage;
-    }
 
 }

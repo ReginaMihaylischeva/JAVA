@@ -1,16 +1,18 @@
 package net.thumbtack.school.hiring.Models;
 
-public class DeleteEmployer {
-    private String token;
+import java.util.UUID;
 
-    public String getToken() {
+public class DeleteEmployer {
+    private UUID token;
+
+    public UUID getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(UUID token) {
         this.token = token;
     }
-    public DeleteEmployer(String token){
+    public DeleteEmployer(UUID token){
 
         setToken(token);
     }

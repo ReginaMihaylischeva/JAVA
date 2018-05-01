@@ -1,5 +1,7 @@
 package net.thumbtack.school.hiring.request;
 
+import net.thumbtack.school.hiring.Models.Employee;
+
 public class RegisterEmployeeDtoRequest {
     private String firstName;
     private String lastName;

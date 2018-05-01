@@ -1,8 +1,8 @@
-package net.thumbtack.school.hiring.Models;
+package net.thumbtack.school.hiring.response;
 
-public class DeleteSummary {
-
+public class RegisterEmployeeDtoResponse {
     private String token;
+
 
     public String getToken() {
         return token;
@@ -11,8 +11,9 @@ public class DeleteSummary {
     public void setToken(String token) {
         this.token = token;
     }
-    public DeleteSummary(String token){
+    public RegisterEmployeeDtoResponse(String token){
 
         setToken(token);
     }
+    public String validate(){return  "error";}
 }
