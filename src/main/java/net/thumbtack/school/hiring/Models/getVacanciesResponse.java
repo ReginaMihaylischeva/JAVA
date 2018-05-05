@@ -1,15 +1,11 @@
 package net.thumbtack.school.hiring.Models;
 
-import net.thumbtack.school.hiring.request.Requirements;
-
-import java.util.List;
-
 public class getVacanciesResponse {
     private Vacancy vacancies;
     private String firstName;
     private String lastName;
     private String middlename;
-    private String  address;
+    private String address;
     private String companyName;
     private String email;
 
@@ -68,7 +64,8 @@ public class getVacanciesResponse {
     private void setEmail(String email) {
         this.email = email;
     }
-    public getVacanciesResponse(String firstName, String lastName, String middlename, String email, Vacancy vacancies,String  address,String companyName){
+
+    public getVacanciesResponse(String firstName, String lastName, String middlename, String email, Vacancy vacancies, String address, String companyName) {
         setAddress(address);
         setEmail(email);
         setFirstName(firstName);

@@ -8,8 +8,17 @@ public class Employee {
     private String email;
     private String login;
     private String password;
+    private boolean activity;
 
-    public Employee(String firstName, String login, String password, String lastName, String middlename, int age, String email) {
+    public boolean isActivity() {
+        return activity;
+    }
+
+    private void setActivity(boolean activity) {
+        this.activity = activity;
+    }
+
+    public Employee(String firstName, String login, String password, String lastName, String middlename, int age, String email, boolean activity) {
         setEmail(email);
         setFirstName(firstName);
         setPassword(password);
@@ -17,6 +26,8 @@ public class Employee {
         setLastName(lastName);
         setMiddlename(middlename);
         setAge(age);
+        setActivity(activity);
+
     }
 
     public String getEmail() {

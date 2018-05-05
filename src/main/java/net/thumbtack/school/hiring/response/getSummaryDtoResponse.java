@@ -1,70 +1,83 @@
 package net.thumbtack.school.hiring.response;
 
-import net.thumbtack.school.hiring.request.Skills;
+import net.thumbtack.school.hiring.Models.getSummaryResponse;
 
-import java.util.List;
+import java.util.ArrayDeque;
 
 public class getSummaryDtoResponse {
-    private List<Skills> skills;
-    private String firstName;
-    private String lastName;
-    private String middlename;
-    private int age;
-    private String email;
+    private ArrayDeque<getSummaryResponse> Summary;
 
-    public List<Skills> getSkills() {
-        return skills;
+    public ArrayDeque<getSummaryResponse> getSummary() {
+        return Summary;
     }
 
-    private void setSkills(List<Skills> skills) {
-        this.skills = skills;
+    private void setSummary(ArrayDeque<getSummaryResponse> summary) {
+        Summary = summary;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    /*  private List<Skills> skills;
+      private String firstName;
+      private String lastName;
+      private String middlename;
+      private int age;
+      private String email;
 
-    private void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+      public List<Skills> getSkills() {
+          return skills;
+      }
 
-    public String getLastName() {
-        return lastName;
-    }
+      private void setSkills(List<Skills> skills) {
+          this.skills = skills;
+      }
 
-    private void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+      public String getFirstName() {
+          return firstName;
+      }
 
-    public String getMiddlename() {
-        return middlename;
-    }
+      private void setFirstName(String firstName) {
+          this.firstName = firstName;
+      }
 
-    private void setMiddlename(String middlename) {
-        this.middlename = middlename;
-    }
+      public String getLastName() {
+          return lastName;
+      }
 
-    public int getAge() {
-        return age;
-    }
+      private void setLastName(String lastName) {
+          this.lastName = lastName;
+      }
 
-    private void setAge(int age) {
-        this.age = age;
-    }
+      public String getMiddlename() {
+          return middlename;
+      }
 
-    public String getEmail() {
-        return email;
-    }
+      private void setMiddlename(String middlename) {
+          this.middlename = middlename;
+      }
 
-    private void setEmail(String email) {
-        this.email = email;
-    }
-    public  getSummaryDtoResponse(String firstName,String lastName,String middlename,String email,List<Skills> skills, int age ){
-        setAge(age);
-        setEmail(email);
-        setFirstName(firstName);
-        setLastName(lastName);
-        setMiddlename(middlename);
-        setSkills(skills);
+      public int getAge() {
+          return age;
+      }
+
+      private void setAge(int age) {
+          this.age = age;
+      }
+
+      public String getEmail() {
+          return email;
+      }
+
+      private void setEmail(String email) {
+          this.email = email;
+      }
+      public  getSummaryDtoResponse(String firstName,String lastName,String middlename,String email,List<Skills> skills, int age ){
+          setAge(age);
+          setEmail(email);
+          setFirstName(firstName);
+          setLastName(lastName);
+          setMiddlename(middlename);
+          setSkills(skills);
+      }*/
+    public getSummaryDtoResponse(ArrayDeque<getSummaryResponse> Summary) {
+        setSummary(Summary);
     }
 }

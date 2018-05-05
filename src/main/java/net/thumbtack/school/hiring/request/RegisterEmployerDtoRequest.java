@@ -7,7 +7,7 @@ public class RegisterEmployerDtoRequest {
     private String email;
     private String login;
     private String password;
-    private String  address;
+    private String address;
     private String companyName;
 
     public String getFirstName() {
@@ -73,17 +73,40 @@ public class RegisterEmployerDtoRequest {
     private void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
-    RegisterEmployerDtoRequest(String firstName, String login, String password, String lastName, String middlename,String address,String companyName,String email){
+
+    RegisterEmployerDtoRequest(String firstName, String login, String password, String lastName, String middlename, String address, String companyName, String email) {
         setAddress(address);
         setCompanyName(companyName);
         setEmail(email);
         setFirstName(firstName);
         setLastName(lastName);
         setLogin(login);
-       setMiddlename(middlename);
-       setPassword(password);
+        setMiddlename(middlename);
+        setPassword(password);
     }
+
     public String validate() {
-        return "error";
+        if (firstName.isEmpty()) {
+            return "Empty first name";
+        }
+        if (lastName.isEmpty()) {
+            return "Empty last name";
+        }
+        if (email.isEmpty()) {
+            return "Empty email ";
+        }
+        if (login.isEmpty()) {
+            return "Empty login ";
+        }
+        if (password.isEmpty()) {
+            return "Empty password ";
+        }
+        if (address.isEmpty()) {
+            return "Empty address ";
+        }
+        if (companyName.isEmpty()) {
+            return "Empty company  name";
+        }
+        return "";
     }
 }

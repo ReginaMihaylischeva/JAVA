@@ -1,8 +1,10 @@
 package net.thumbtack.school.hiring.DataBase;
 
 import net.thumbtack.school.hiring.Models.*;
-import net.thumbtack.school.hiring.request.Requirements;
-import net.thumbtack.school.hiring.request.Skills;
+import net.thumbtack.school.hiring.Models.Requirements;
+import net.thumbtack.school.hiring.Models.Skills;
+import net.thumbtack.school.hiring.error.ServerErrorCode;
+import net.thumbtack.school.hiring.error.serverException;
 
 import java.util.*;
 
@@ -13,12 +15,19 @@ public class DataBase {
     private Map<String, List<Skills>> dataBaseSummary;
     private Map<String, Vacancy> dataBaseVacancies;
 
-    public UUID Insert(net.thumbtack.school.hiring.Models.Employee Employee, String login) {
+    public UUID Insert(net.thumbtack.school.hiring.Models.Employee Employee, String login) throws serverException {
+        for(Employee employee :dataBaseEmployee.values()){
+          if(employee.getLogin().equals(login)){ throw new serverException(ServerErrorCode.user_already_registered); }
+         }
+
         dataBaseEmployee.put(UUID.fromString(login).toString(), Employee);
         return UUID.fromString(login);
     }
 
-    public void Delete(DeleteEmployee employee) {
+    public void Delete(DeleteEmployee employee)throws serverException{
+     if   ( !(dataBaseSummary.containsKey(employee.getToken())|dataBaseEmployee.containsKey(employee.getToken()))){
+         throw new serverException(ServerErrorCode.user_does_not_exist);
+     }
         dataBaseSummary.remove(employee.getToken());
         dataBaseEmployee.remove(employee.getToken());
 
@@ -40,7 +49,7 @@ public class DataBase {
                     if (skills.getNameRequirement().equals(Requirement.getNameRequirement()) & skills.getLevelProficiency() >= Requirement.getLevelProficiency() & !GetVacancies.isCompulsion() & GetVacancies.isCheckAllSkills()) {
                         count++;
                     }
-                    if (skills.getNameRequirement().equals(Requirement.getNameRequirement()) & skills.getLevelProficiency() >= Requirement.getLevelProficiency() & GetVacancies.isCompulsion()  & GetVacancies.isCheckAllSkills()) {
+                    if (skills.getNameRequirement().equals(Requirement.getNameRequirement()) & skills.getLevelProficiency() >= Requirement.getLevelProficiency() & GetVacancies.isCompulsion() & GetVacancies.isCheckAllSkills()) {
                         count++;
                     }
                     if (skills.getNameRequirement().equals(Requirement.getNameRequirement()) & skills.getLevelProficiency() == 0 & GetVacancies.isCheckAllSkills()) {
@@ -54,11 +63,11 @@ public class DataBase {
 
             }
 
-            if (count == GetVacancies.getSkills().size() & GetVacancies.isCheckAllSkills()) {
+            if (count == GetVacancies.getSkills().size() & GetVacancies.isCheckAllSkills() & vacancies.isActivity().equals("yes")) {
                 Object firstKey = dataBaseVacancies.keySet().toArray()[0];
                 Object valueForFirstKey = dataBaseVacancies.get(firstKey.toString());
-                Employer sdf=dataBaseEmployer.get(valueForFirstKey.toString());
-                getVacanciesResponse v=new getVacanciesResponse(
+                Employer sdf = dataBaseEmployer.get(valueForFirstKey.toString());
+                getVacanciesResponse v = new getVacanciesResponse(
 
                         sdf.getFirstName(),
                         sdf.getLastName(),
@@ -71,11 +80,11 @@ public class DataBase {
                 );
                 NewList.add(v);
             }
-            if (count != 0 & !GetVacancies.isCheckAllSkills()) {
+            if (count != 0 & !GetVacancies.isCheckAllSkills() & vacancies.isActivity().equals("yes")) {
                 Object firstKey = dataBaseVacancies.keySet().toArray()[0];
                 Object valueForFirstKey = dataBaseVacancies.get(firstKey.toString());
-                Employer sdf=dataBaseEmployer.get(valueForFirstKey.toString());
-                getVacanciesResponse v=new getVacanciesResponse(
+                Employer sdf = dataBaseEmployer.get(valueForFirstKey.toString());
+                getVacanciesResponse v = new getVacanciesResponse(
 
                         sdf.getFirstName(),
                         sdf.getLastName(),
@@ -97,20 +106,30 @@ public class DataBase {
 
 
         }
+
         return NewList;
 
     }
 
-    public void deleteSummary(Summary summary) {
+    public void deleteSummary(Summary summary) throws serverException{
+        if    (!dataBaseSummary.containsValue(summary.getSkills())){
+            throw new serverException(ServerErrorCode.summary_does_not_exist);
+        }
         dataBaseSummary.remove(summary.getToken(), summary.getSkills());
     }
 
-    public UUID InsertEmployer(net.thumbtack.school.hiring.Models.Employer Employer, String login) {
+    public UUID InsertEmployer(net.thumbtack.school.hiring.Models.Employer Employer, String login)throws serverException {
+        for(Employer employer :dataBaseEmployer.values()){
+            if(employer.getLogin().equals(login)){ throw new serverException(ServerErrorCode.user_already_registered); }
+        }
         dataBaseEmployer.put(UUID.fromString(login).toString(), Employer);
         return UUID.fromString(login);
     }
 
-    public void DeleteEmployer(DeleteEmployer employer) {
+    public void DeleteEmployer(DeleteEmployer employer) throws serverException{
+        if   ( !(dataBaseVacancies.containsKey(employer.getToken().toString())|dataBaseEmployer.containsKey(employer.getToken().toString()))){
+            throw new serverException(ServerErrorCode.user_does_not_exist);
+        }
         dataBaseVacancies.remove(employer.getToken().toString());
         dataBaseEmployer.remove(employer.getToken().toString());
 
@@ -120,29 +139,58 @@ public class DataBase {
         dataBaseVacancies.put(vacancy.getToken(), vacancy);
     }
 
-    public void deleteVacancy(Vacancy vacancy) {
+    public void deleteVacancy(Vacancy vacancy) throws serverException{
+        if    (!dataBaseVacancies.containsValue(vacancy)){
+            throw new serverException(ServerErrorCode.vacancy_does_not_exist);
+        }
         dataBaseVacancies.remove(vacancy.getToken(), vacancy);
     }
 
-    public   ArrayList<Vacancy>   allVacancies(AllVacancies vacancies){
-        return new ArrayList<>(dataBaseVacancies.values());}
+    public ArrayDeque<getVacanciesResponse> allVacancies(AllVacancies vacancy) {
+        ArrayDeque<getVacanciesResponse> NewList = new ArrayDeque<>();
+
+        for (Vacancy vacancies : dataBaseVacancies.values()) {
+
+            Object firstKey = dataBaseVacancies.keySet().toArray()[0];
+            Object valueForFirstKey = dataBaseVacancies.get(firstKey.toString());
+            Employer sdf = dataBaseEmployer.get(valueForFirstKey.toString());
+            getVacanciesResponse v = new getVacanciesResponse(
+
+                    sdf.getFirstName(),
+                    sdf.getLastName(),
+                    sdf.getMiddlename(),
+                    sdf.getEmail(),
+                    vacancies,
+                    sdf.getAddress(),
+                    sdf.getCompanyName()
+
+            );
+            if (!vacancy.getActivity().isEmpty() & vacancy.getActivity().equals(vacancies.isActivity())) {
+                NewList.add(v);
+            }
+            if (vacancy.getActivity().isEmpty()) {
+                NewList.add(v);
+            }
+        }
+        return NewList;
+    }
 
 
-    public  ArrayDeque<getSummaryResponse> getSummary(getSummary requirements){
+    public ArrayDeque<getSummaryResponse> getSummary(getSummary requirements) {
         ArrayDeque<getSummaryResponse> NewList = new ArrayDeque<>();
 
         int count = 0;
         int oldCount = 0;
-        for (List<Skills> skills : dataBaseSummary.values()){
-            for (Skills skill : skills){
-                for (Requirements requirement : requirements.getRequirements()){
-                    if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & skill.getLevelProficiency() >= requirement.getLevelProficiency() & !requirements.isCompulsion()&requirements.isCheckAllRequirements()) {
+        for (List<Skills> skills : dataBaseSummary.values()) {
+            for (Skills skill : skills) {
+                for (Requirements requirement : requirements.getRequirements()) {
+                    if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & skill.getLevelProficiency() >= requirement.getLevelProficiency() & !requirements.isCompulsion() & requirements.isCheckAllRequirements()) {
                         count++;
                     }
-                    if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & skill.getLevelProficiency() >= requirement.getLevelProficiency() & requirements.isCompulsion()&requirements.isCheckAllRequirements()) {
+                    if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & skill.getLevelProficiency() >= requirement.getLevelProficiency() & requirements.isCompulsion() & requirements.isCheckAllRequirements()) {
                         count++;
                     }
-                    if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & requirement.getLevelProficiency() ==0 &requirements.isCheckAllRequirements()) {
+                    if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & requirement.getLevelProficiency() == 0 & requirements.isCheckAllRequirements()) {
                         count++;
                     }
                     if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & skill.getLevelProficiency() >= requirement.getLevelProficiency() & !requirements.isCheckAllRequirements()) {
@@ -156,23 +204,8 @@ public class DataBase {
             if (count == requirements.getRequirements().size() & requirements.isCheckAllRequirements()) {
                 Object firstKey = dataBaseSummary.keySet().toArray()[0];
                 Object valueForFirstKey = dataBaseSummary.get(firstKey.toString());
-                Employee sdf=dataBaseEmployee.get(valueForFirstKey.toString());
-                getSummaryResponse v=new getSummaryResponse(
-
-                        sdf.getFirstName(),
-                        sdf.getLastName(),
-                        sdf.getMiddlename(),
-                        sdf.getEmail(),
-                         skills,
-                        sdf.getAge()
-                );
-                NewList.add(v);
-            }
-            if (count != 0 & !requirements.isCheckAllRequirements()) {
-                Object firstKey = dataBaseSummary.keySet().toArray()[0];
-                Object valueForFirstKey = dataBaseSummary.get(firstKey.toString());
-                Employee sdf=dataBaseEmployee.get(valueForFirstKey.toString());
-                getSummaryResponse v=new getSummaryResponse(
+                Employee sdf = dataBaseEmployee.get(valueForFirstKey.toString());
+                getSummaryResponse v = new getSummaryResponse(
 
                         sdf.getFirstName(),
                         sdf.getLastName(),
@@ -181,16 +214,90 @@ public class DataBase {
                         skills,
                         sdf.getAge()
                 );
-                if (oldCount > count) {
-                    NewList.addLast(v);
-                } else {
-                    NewList.addFirst(v);
+                if (sdf.isActivity()) {
+                    NewList.add(v);
                 }
-                oldCount = count;
+            }
+            if (count != 0 & !requirements.isCheckAllRequirements()) {
+                Object firstKey = dataBaseSummary.keySet().toArray()[0];
+                Object valueForFirstKey = dataBaseSummary.get(firstKey.toString());
+                Employee sdf = dataBaseEmployee.get(valueForFirstKey.toString());
+                getSummaryResponse v = new getSummaryResponse(
+
+                        sdf.getFirstName(),
+                        sdf.getLastName(),
+                        sdf.getMiddlename(),
+                        sdf.getEmail(),
+                        skills,
+                        sdf.getAge()
+                );
+                if (sdf.isActivity()) {
+
+                    if (oldCount > count) {
+                        NewList.addLast(v);
+                    } else {
+                        NewList.addFirst(v);
+                    }
+                    oldCount = count;
+                }
             }
             count = 0;
         }
-       return NewList;
+        return NewList;
     }
 
+    public ArrayDeque<getSummaryResponse> allSummary(AllSummary summary) {
+        ArrayDeque<getSummaryResponse> NewList = new ArrayDeque<>();
+        for (List<Skills> skills : dataBaseSummary.values()) {
+            Object firstKey = dataBaseSummary.keySet().toArray()[0];
+            Object valueForFirstKey = dataBaseSummary.get(firstKey.toString());
+            Employee sdf = dataBaseEmployee.get(valueForFirstKey.toString());
+            getSummaryResponse v = new getSummaryResponse(
+
+                    sdf.getFirstName(),
+                    sdf.getLastName(),
+                    sdf.getMiddlename(),
+                    sdf.getEmail(),
+                    skills,
+                    sdf.getAge()
+            );
+            NewList.add(v);
+        }
+        return NewList;
+    }
+
+    public void editSummary(EditSummary editSummary) throws serverException {
+        if    (!dataBaseSummary.containsKey(editSummary.getToken())){
+            throw new serverException(ServerErrorCode.summary_does_not_exist);
+        }
+        List<Skills> skills = dataBaseSummary.get(editSummary.getToken());
+        if (editSummary.getOldSkills().isEmpty()) {
+            skills.addAll(editSummary.getNewSkills());
+        }
+        if (editSummary.getNewSkills().isEmpty()) {
+            skills.removeAll(editSummary.getOldSkills());
+        }
+        if (!editSummary.getNewSkills().isEmpty() & !editSummary.getOldSkills().isEmpty()) {
+            skills.removeAll(editSummary.getOldSkills());
+            skills.addAll(editSummary.getNewSkills());
+        }
+    }
+
+    public void editVacancy(EditVacancy editVacancy) throws serverException {
+        if    (!dataBaseVacancies.containsKey(editVacancy.getToken())){
+            throw new serverException(ServerErrorCode.vacancy_does_not_exist);
+        }
+        List<Requirements> requirements = dataBaseVacancies.get(editVacancy.getToken()).getRequirements();
+        if (editVacancy.getOldRequirements().isEmpty()) {
+            requirements.addAll(editVacancy.getNewRequirements());
+        }
+        if (editVacancy.getNewRequirements().isEmpty()) {
+            requirements.removeAll(editVacancy.getOldRequirements());
+        }
+        if (!editVacancy.getNewRequirements().isEmpty() & !editVacancy.getOldRequirements().isEmpty()) {
+            requirements.removeAll(editVacancy.getOldRequirements());
+            requirements.addAll(editVacancy.getNewRequirements());
+        }
+
+    }
 }

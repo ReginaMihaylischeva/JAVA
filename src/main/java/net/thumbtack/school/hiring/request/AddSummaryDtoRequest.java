@@ -1,7 +1,8 @@
 package net.thumbtack.school.hiring.request;
 
+import net.thumbtack.school.hiring.Models.Skills;
+
 import java.util.List;
-import java.util.Set;
 
 public class AddSummaryDtoRequest {
 
@@ -33,6 +34,15 @@ public class AddSummaryDtoRequest {
 
 
     public String validate() {
-        return "error";
+        if (token.isEmpty()) {
+            return "token is empty";
+        }
+        for (Skills skill : skills) {
+            if (!skill.validate().equals("")) {
+                return skill.validate();
+            }
+        }
+
+        return "";
     }
 }

@@ -1,9 +1,10 @@
-package net.thumbtack.school.hiring.request;
+package net.thumbtack.school.hiring.Models;
 
 public class Skills {
-    private String  nameRequirement;
+    private String nameRequirement;
 
     private int levelProficiency;
+
     public String getNameRequirement() {
         return nameRequirement;
     }
@@ -21,8 +22,18 @@ public class Skills {
         this.levelProficiency = levelProficiency;
     }
 
-    public Skills(String nameRequirement, int levelProficiency){
+    public Skills(String nameRequirement, int levelProficiency) {
         setLevelProficiency(levelProficiency);
         setNameRequirement(nameRequirement);
+    }
+
+    public String validate() {
+        if (nameRequirement.isEmpty()) {
+            return "Requirement is empty";
+        }
+        if (levelProficiency > 6 || levelProficiency < 0) {
+            return "not correct levelProficiency";
+        }
+        return "";
     }
 }

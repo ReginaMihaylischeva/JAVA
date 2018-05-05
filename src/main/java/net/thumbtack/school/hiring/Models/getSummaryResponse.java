@@ -1,7 +1,5 @@
 package net.thumbtack.school.hiring.Models;
 
-import net.thumbtack.school.hiring.request.Skills;
-
 import java.util.List;
 
 public class getSummaryResponse {
@@ -11,6 +9,7 @@ public class getSummaryResponse {
     private String middlename;
     private int age;
     private String email;
+
 
     public List<Skills> getSkills() {
         return skills;
@@ -59,7 +58,8 @@ public class getSummaryResponse {
     private void setEmail(String email) {
         this.email = email;
     }
-    public getSummaryResponse(String firstName, String lastName, String middlename, String email, List<Skills> skills, int age ){
+
+    public getSummaryResponse(String firstName, String lastName, String middlename, String email, List<Skills> skills, int age) {
         setAge(age);
         setEmail(email);
         setFirstName(firstName);

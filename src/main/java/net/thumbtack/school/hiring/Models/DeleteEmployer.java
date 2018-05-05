@@ -12,7 +12,8 @@ public class DeleteEmployer {
     public void setToken(UUID token) {
         this.token = token;
     }
-    public DeleteEmployer(UUID token){
+
+    public DeleteEmployer(UUID token) {
 
         setToken(token);
     }

@@ -1,13 +1,9 @@
 package net.thumbtack.school.hiring.Models;
 
-import javafx.scene.control.Skin;
-import net.thumbtack.school.hiring.request.Skills;
-
 import java.util.List;
-import java.util.Set;
 
 public class Summary {
-private List<Skills> skills;
+    private List<Skills> skills;
 
     private String token;
 

@@ -1,5 +1,7 @@
 package net.thumbtack.school.hiring.request;
 
+import net.thumbtack.school.hiring.Models.Skills;
+
 import java.util.List;
 
 public class deleteSummaryDtoRequest {
@@ -31,6 +33,14 @@ public class deleteSummaryDtoRequest {
 
 
     public String validate() {
-        return "error";
+        for (Skills skill : skills) {
+            if (!skill.validate().equals("")) {
+                return skill.validate();
+            }
+        }
+        if (token.isEmpty()) {
+            return "Empty token";
+        }
+        return "";
     }
 }

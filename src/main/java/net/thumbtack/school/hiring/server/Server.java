@@ -1,13 +1,32 @@
 package net.thumbtack.school.hiring.server;
 
+import com.google.gson.Gson;
+import net.thumbtack.school.hiring.DataBase.DataBase;
 import net.thumbtack.school.hiring.service.EmployeeService;
 import net.thumbtack.school.hiring.service.EmployerService;
 
-public class Server {
-    public void startServer(String savedDataFileName) {
+import java.io.*;
+
+public class Server  {
+    public void startServer(String savedDataFileName) throws IOException{
+        Gson gson = new Gson();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(savedDataFileName))) {
+            DataBase dataBase= gson.fromJson(br, DataBase.class);
+
+        }
     }
 
-    public void stopServer(String saveDataFileName) {
+    public void stopServer(String saveDataFileName)throws IOException {
+        Gson gson = new Gson();
+        if (!saveDataFileName.isEmpty()) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(saveDataFileName))) {
+
+                gson.toJson(DataBase.class, bw);
+            }
+        }
+
+
     }
 
     private net.thumbtack.school.hiring.service.EmployeeService EmployeeService = new EmployeeService();
@@ -16,57 +35,74 @@ public class Server {
         return EmployeeService.registerEmployee(requestJsonStringEmployee);
     }
 
-    public String addsummary(String requestJsonStringaddsummary) {
-        return EmployeeService.addSummary(requestJsonStringaddsummary);
+    public String addsummary(String requestJsonStringAddSummary) {
+        return EmployeeService.addSummary(requestJsonStringAddSummary);
 
 
     }
 
-  /*  public String getsummary(String requestJsonStringgetsummary) {
-        return EmployeeService.getSummary(requestJsonStringgetsummary);
-
-    }*/
-
-    public String deleteEmployee(String requestJsonStringdeleteEmployee) {
-        return EmployeeService.deleteEmployee(requestJsonStringdeleteEmployee);
+    public String getsummary(String requestJsonStringGetSummary) {
+        return EmployerService.getSummary(requestJsonStringGetSummary);
 
     }
 
-    public String deletesummary(String requestJsonStringdeletesummary) {
-        return EmployeeService.deleteSummary(requestJsonStringdeletesummary);
+    public String deleteEmployee(String requestJsonStringDeleteEmployee) {
+        return EmployeeService.deleteEmployee(requestJsonStringDeleteEmployee);
 
     }
 
-  /*  public String searchEmployee(String requestJsonStringsearchEmployee) {
-        return EmployeeService.searchEmployee(requestJsonStringsearchEmployee);
+    public String deletesummary(String requestJsonStringDeletesummary) {
+        return EmployeeService.deleteSummary(requestJsonStringDeletesummary);
 
-    }*/
+    }
+
+    public String allVacancies(String requestJsonAllVacancies) {
+        return EmployeeService.allVacancies(requestJsonAllVacancies);
+    }
+
+    public String editSummary(String requestJsonStringEditSummary) {
+        return EmployeeService.editSummary(requestJsonStringEditSummary);
+    }
 
 
     private net.thumbtack.school.hiring.service.EmployerService EmployerService = new EmployerService();
-    public String registerEmployer(String requestJsonStringEmployer){
+
+    public String registerEmployer(String requestJsonStringEmployer) {
         return EmployerService.registerEmployer(requestJsonStringEmployer);
 
     }
-    public String addVacancy(String requestJsonStringaddVacancy){
-        return EmployerService.addVacancy(requestJsonStringaddVacancy);
+
+    public String addVacancy(String requestJsonStringAddVacancy) {
+        return EmployerService.addVacancy(requestJsonStringAddVacancy);
 
     }
-   /* public String getVacancies(String requestJsonStringgetVacancies){
-        return EmployerService.getVacancies(requestJsonStringgetVacancies);
 
-    }*/
-    public String deleteEmployer(String requestJsonStringdeleteEmployer){
-        return EmployerService.deleteEmployer(requestJsonStringdeleteEmployer);
+    public String getVacancies(String requestJsonStringGetVacancies) {
+        return EmployeeService.getVacancies(requestJsonStringGetVacancies);
 
     }
-    public String deleteVacancy(String requestJsonStringdeleteVacancy){
-        return EmployerService.deleteVacancy(requestJsonStringdeleteVacancy);
+
+    public String deleteEmployer(String requestJsonStringDeleteEmployer) {
+        return EmployerService.deleteEmployer(requestJsonStringDeleteEmployer);
 
     }
- /*   public String searchEmployer(String requestJsonStringsearchEmployer){
-        return EmployerService.searchEmployer(requestJsonStringsearchEmployer);
 
-    }*/
+    public String deleteVacancy(String requestJsonStringDeleteVacancy) {
+        return EmployerService.deleteVacancy(requestJsonStringDeleteVacancy);
+
+    }
+
+    public String allSummary(String requestJsonAllSummary) {
+        return EmployerService.allSummary(requestJsonAllSummary);
+    }
+
+    public String editVacancies(String requestJsonStringEditVacancy) {
+        return EmployeeService.editSummary(requestJsonStringEditVacancy);
+    }
+
+    public String editVacancy(String requestJsonStringEditVacancy) {
+        return EmployerService.editVacancy(requestJsonStringEditVacancy);
+    }
+
 
 }

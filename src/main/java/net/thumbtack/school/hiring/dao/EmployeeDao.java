@@ -1,6 +1,7 @@
 package net.thumbtack.school.hiring.dao;
 
 import net.thumbtack.school.hiring.Models.*;
+import net.thumbtack.school.hiring.error.serverException;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -8,11 +9,11 @@ import java.util.List;
 import java.util.UUID;
 
 public interface EmployeeDao {
-    UUID insert(Employee employee);
-    void delete(DeleteEmployee employee);
+    UUID insert(Employee employee) throws serverException;
+    void delete(DeleteEmployee employee)throws serverException;
     void addSummary(Summary summary);
-    void deleteSummary(Summary summary);
+    void deleteSummary(Summary summary) throws serverException;
     ArrayDeque<getVacanciesResponse> getVacancies(getVacancies GetVacancies);
-    ArrayList<Vacancy> AllVacancies(AllVacancies vacancies);
-
+    ArrayDeque<getVacanciesResponse> AllVacancies(AllVacancies vacancies);
+     void editSummary(EditSummary editSummary)throws serverException;
 }

@@ -11,9 +11,13 @@ public class RegisterEmployerDtoResponse {
     public void setToken(String token) {
         this.token = token;
     }
-    public RegisterEmployerDtoResponse(String token){
+
+    public RegisterEmployerDtoResponse(String token) {
 
         setToken(token);
     }
-    public String validate(){return  "error";}
+
+    public String validate() {
+        return "error";
+    }
 }

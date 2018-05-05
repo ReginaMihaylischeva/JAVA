@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import net.thumbtack.school.hiring.Models.*;
 
 import net.thumbtack.school.hiring.daoimpl.DAO;
+import net.thumbtack.school.hiring.error.serverException;
 import net.thumbtack.school.hiring.request.*;
 import net.thumbtack.school.hiring.response.AllVacanciesDtoResponse;
 import net.thumbtack.school.hiring.response.GetVacansiesDtoResponse;
@@ -13,111 +14,155 @@ import java.util.UUID;
 
 public class EmployeeService {
     private Gson gson = new Gson();
-    private DAO dao =new DAO();
-    public String registerEmployee(String requestJsonStringEmployee) {
-        RegisterEmployeeDtoRequest registerEmployeeDtoReques = gson.fromJson(requestJsonStringEmployee, RegisterEmployeeDtoRequest.class);
-        if (registerEmployeeDtoReques.validate().equals( "error")) {
-            return  gson.toJson("error");
+    private DAO dao = new DAO();
+
+    public String registerEmployee(String requestJsonStringEmployee)  {
+        RegisterEmployeeDtoRequest registerEmployeeDtoRequest = gson.fromJson(requestJsonStringEmployee, RegisterEmployeeDtoRequest.class);
+        if (!registerEmployeeDtoRequest.validate().equals("")) {
+            return gson.toJson(registerEmployeeDtoRequest.validate());
 
 
         }
         Employee newEmployee = new Employee(
-                registerEmployeeDtoReques.getFirstName(),
-                registerEmployeeDtoReques.getLogin(),
-                registerEmployeeDtoReques.getPassword(),
-                registerEmployeeDtoReques.getLastName(),
-                registerEmployeeDtoReques.getMiddlename(),
-                registerEmployeeDtoReques.getAge(),
-                registerEmployeeDtoReques.getEmail()
-                );
+                registerEmployeeDtoRequest.getFirstName(),
+                registerEmployeeDtoRequest.getLogin(),
+                registerEmployeeDtoRequest.getPassword(),
+                registerEmployeeDtoRequest.getLastName(),
+                registerEmployeeDtoRequest.getMiddlename(),
+                registerEmployeeDtoRequest.getAge(),
+                registerEmployeeDtoRequest.getEmail(),
+                registerEmployeeDtoRequest.isActivity()
+        );
+        try {
+
+            RegisterEmployeeDtoResponse registerEmployeeDtoResponse = new RegisterEmployeeDtoResponse(dao.insert(newEmployee).toString());
+
+            return gson.toJson(registerEmployeeDtoResponse);
+        }catch (serverException user_already_registered ){
+          return   gson.toJson(new Error(user_already_registered));
+        }
 
 
-        RegisterEmployeeDtoResponse registerEmployeeDtoResponse= new RegisterEmployeeDtoResponse(dao.insert(newEmployee ).toString());
 
-      return   gson.toJson( registerEmployeeDtoResponse);
+
 
     }
 
 
+    public String addSummary(String requestJsonStringAddSummary) {
+        AddSummaryDtoRequest addsummaryDtoRequest = gson.fromJson(requestJsonStringAddSummary, AddSummaryDtoRequest.class);
+        if (!addsummaryDtoRequest.validate().equals("")) {
 
-
-    public String addSummary(String requestJsonStringaddsummary) {
-        AddSummaryDtoRequest addsummaryDtoReques = gson.fromJson(requestJsonStringaddsummary, AddSummaryDtoRequest.class);
-        if (addsummaryDtoReques.validate().equals( "error")) {
-
-            return  gson.toJson("error");
+            return gson.toJson(addsummaryDtoRequest.validate());
 
         }
 
         Summary summary = new Summary(
 
-                addsummaryDtoReques.getSkills(),
-                addsummaryDtoReques.getToken());
+                addsummaryDtoRequest.getSkills(),
+                addsummaryDtoRequest.getToken());
         dao.addSummary(summary);
-        return  gson.toJson(" ");
+        return gson.toJson(" ");
     }
 
-    public String GetVacancies(String requestJsonStringgetVacancies) {
-    getVacanciesDtoRequest GetVacanciesDtoRequest = gson.fromJson(requestJsonStringgetVacancies, getVacanciesDtoRequest.class);
-    if (GetVacanciesDtoRequest.validate().equals( "error")) {
-       return  gson.toJson("error");
+    public String getVacancies(String requestJsonStringGetVacancies) {
+        getVacanciesDtoRequest GetVacanciesDtoRequest = gson.fromJson(requestJsonStringGetVacancies, getVacanciesDtoRequest.class);
+        if (!GetVacanciesDtoRequest.validate().equals("")) {
+            return gson.toJson(GetVacanciesDtoRequest.validate());
 
 
-
-    }
+        }
         getVacancies GetVacancies = new getVacancies(
 
                 GetVacanciesDtoRequest.getSkills(),
                 GetVacanciesDtoRequest.getToken(),
                 GetVacanciesDtoRequest.isCompulsion(),
-                GetVacanciesDtoRequest.isCheckAllSkills());
-        GetVacansiesDtoResponse getVacansiesDtoResponse=new  GetVacansiesDtoResponse(dao.getVacancies(GetVacancies));
-   return   gson.toJson(getVacansiesDtoResponse);
+                GetVacanciesDtoRequest.isCheckAllSkills()
+        );
 
-     }
 
-    public String deleteEmployee(String requestJsonStringdeleteEmployee) {
-        deleteEmployeeDtoRequest deleteEmployee = gson.fromJson(requestJsonStringdeleteEmployee, deleteEmployeeDtoRequest.class);
-        if (deleteEmployee.validate().equals("error")) {
-            return  gson.toJson("error");
+        GetVacansiesDtoResponse getVacansiesDtoResponse = new GetVacansiesDtoResponse(dao.getVacancies(GetVacancies));
+        return gson.toJson(getVacansiesDtoResponse);
+
+    }
+
+    public String deleteEmployee(String requestJsonStringDeleteEmployee) {
+        deleteEmployeeDtoRequest deleteEmployee = gson.fromJson(requestJsonStringDeleteEmployee, deleteEmployeeDtoRequest.class);
+        if (!deleteEmployee.validate().equals("")) {
+            return gson.toJson(deleteEmployee.validate());
 
 
         }
         DeleteEmployee DeleteEemployee = new DeleteEmployee(
 
                 deleteEmployee.getToken());
-        dao.delete(DeleteEemployee);
-        return  gson.toJson(" ");
+        try {
+            dao.delete(DeleteEemployee);
+        }catch (serverException user_does_not_exist ){
+            return gson.toJson(new Error(user_does_not_exist));
+        }
+
+
+        return gson.toJson(" ");
     }
 
-    public String deleteSummary(String requestJsonStringdeletesummary) {
-        deleteSummaryDtoRequest deleteSummary = gson.fromJson(requestJsonStringdeletesummary, deleteSummaryDtoRequest.class);
-        if (deleteSummary.validate() .equals( "error")) {
-            return  gson.toJson("error");
+    public String deleteSummary(String requestJsonStringDeleteSummary) {
+        deleteSummaryDtoRequest deleteSummary = gson.fromJson(requestJsonStringDeleteSummary, deleteSummaryDtoRequest.class);
+        if (!deleteSummary.validate().equals("")) {
+            return gson.toJson(deleteSummary.validate());
 
         }
         Summary DeleteSummary = new Summary(
                 deleteSummary.getSkills(),
                 deleteSummary.getToken());
-       dao.deleteSummary(DeleteSummary);
-        return  gson.toJson(" ");
+
+
+        try {
+            dao.deleteSummary(DeleteSummary);
+        }catch (serverException summary_does_not_exist ){
+            return gson.toJson(new Error(summary_does_not_exist));
+        }
+        return gson.toJson("");
 
     }
 
 
-    public String  AllVacancies(String requestJsonAllVacancies) {
+    public String allVacancies(String requestJsonAllVacancies) {
         AllVacanciesDtoRequest allVacancies = gson.fromJson(requestJsonAllVacancies, AllVacanciesDtoRequest.class);
-        if (allVacancies.validate() .equals( "error")) {
-            return  gson.toJson("error");
+        if (!allVacancies.validate().equals("")) {
+            return gson.toJson(allVacancies.validate());
 
 
         }
         AllVacancies vacancies = new AllVacancies(
-                allVacancies.getAllVacancies()
+                allVacancies.getAllVacancies(),
+                allVacancies.getActivity()
         );
-        AllVacanciesDtoResponse allVacanciesDtoResponse=new AllVacanciesDtoResponse(dao.AllVacancies(vacancies));
+        AllVacanciesDtoResponse allVacanciesDtoResponse = new AllVacanciesDtoResponse(dao.AllVacancies(vacancies));
 
-        return   gson.toJson(allVacanciesDtoResponse);
+        return gson.toJson(allVacanciesDtoResponse);
+    }
+
+    public String editSummary(String requestJsonStringEditSummary) {
+        EditSummaryDtoRequest editResumes = gson.fromJson(requestJsonStringEditSummary, EditSummaryDtoRequest.class);
+        if (!editResumes.validate().equals("")) {
+            return gson.toJson(editResumes.validate());
+
+        }
+        EditSummary editSummary = new EditSummary(
+                editResumes.getNewSkills(),
+                editResumes.getOldSkills(),
+                editResumes.getToken()
+
+        );
+        try {
+            dao.editSummary(editSummary);
+        } catch (serverException summary_does_not_exist) {
+            return gson.toJson(new Error(summary_does_not_exist));
+        }
+
+
+        return gson.toJson(" ");
     }
 
 }

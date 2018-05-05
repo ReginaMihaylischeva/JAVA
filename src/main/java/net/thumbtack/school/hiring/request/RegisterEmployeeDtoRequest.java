@@ -10,6 +10,15 @@ public class RegisterEmployeeDtoRequest {
     private String email;
     private String login;
     private String password;
+    private boolean activity;
+
+    public boolean isActivity() {
+        return activity;
+    }
+
+    private void setActivity(boolean activity) {
+        this.activity = activity;
+    }
 
     public String getEmail() {
         return email;
@@ -19,7 +28,7 @@ public class RegisterEmployeeDtoRequest {
         this.email = email;
     }
 
-    public RegisterEmployeeDtoRequest(String firstName, String login, String password, String lastName, String middlename, int age, String email) {
+    public RegisterEmployeeDtoRequest(String firstName, String login, String password, String lastName, String middlename, int age, String email, boolean activity) {
         setEmail(email);
         setFirstName(firstName);
         setPassword(password);
@@ -27,10 +36,8 @@ public class RegisterEmployeeDtoRequest {
         setLastName(lastName);
         setMiddlename(middlename);
         setAge(age);
+        setActivity(activity);
     }
-
-
-
 
 
     private void setLastName(String lastName) {
@@ -44,7 +51,6 @@ public class RegisterEmployeeDtoRequest {
     private void setAge(int age) {
         this.age = age;
     }
-
 
 
     public String getLastName() {
@@ -86,6 +92,25 @@ public class RegisterEmployeeDtoRequest {
 
     // конструкторы, геттеры и сеттеры
     public String validate() {
-       return "error";
+        if (firstName.isEmpty()) {
+            return "Empty first name";
+        }
+        if (lastName.isEmpty()) {
+            return "Empty last name";
+        }
+        if (email.isEmpty()) {
+            return "Empty email ";
+        }
+        if (login.isEmpty()) {
+            return "Empty login ";
+        }
+        if (password.isEmpty()) {
+            return "Empty password ";
+        }
+        if (age < 18 | age > 100) {
+            return "not correct age ";
+        }
+
+        return "";
     }
 }

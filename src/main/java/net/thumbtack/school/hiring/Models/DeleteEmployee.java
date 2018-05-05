@@ -11,7 +11,8 @@ public class DeleteEmployee {
     public void setToken(String token) {
         this.token = token;
     }
-    public DeleteEmployee(String token){
+
+    public DeleteEmployee(String token) {
 
         setToken(token);
     }

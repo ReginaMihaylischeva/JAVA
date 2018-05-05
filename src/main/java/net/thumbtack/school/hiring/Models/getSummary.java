@@ -1,12 +1,10 @@
 package net.thumbtack.school.hiring.Models;
 
-import net.thumbtack.school.hiring.request.Requirements;
-
 import java.util.List;
 
 public class getSummary {
     private List<Requirements> requirements;
-    private boolean  checkAllRequirements;
+    private boolean checkAllRequirements;
 
     public boolean isCheckAllRequirements() {
         return checkAllRequirements;
@@ -43,10 +41,12 @@ public class getSummary {
         return token;
     }
 
-    public getSummary(List<Requirements> requirements, String token,boolean compulsion,boolean checkAllRequirements) {
+    public getSummary(List<Requirements> requirements, String token, boolean compulsion, boolean checkAllRequirements) {
         setRequirements(requirements);
         setCompulsion(compulsion);
         setToken(token);
         setCheckAllRequirements(checkAllRequirements);
+
+
     }
 }

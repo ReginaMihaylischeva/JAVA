@@ -13,9 +13,16 @@ public class deleteEmployerDtoRequest {
     public void setToken(UUID token) {
         this.token = token;
     }
-    private deleteEmployerDtoRequest(UUID token){
+
+    private deleteEmployerDtoRequest(UUID token) {
 
         setToken(token);
     }
-    public String validate(){return  "error";}
+
+    public String validate() {
+        if (token.toString().isEmpty()) {
+            return "Empty token";
+        }
+        return "";
+    }
 }

@@ -1,13 +1,20 @@
 package net.thumbtack.school.hiring.Models;
 
-import net.thumbtack.school.hiring.request.Requirements;
-
 import java.util.List;
 
 public class Vacancy {
-    private String  jobTitle;
-    private   int estimatedSalary;
+    private String jobTitle;
+    private int estimatedSalary;
     private List<Requirements> requirements;
+    private String activity;
+
+    public String isActivity() {
+        return activity;
+    }
+
+    private void setActivity(String activity) {
+        this.activity = activity;
+    }
 
     public String getJobTitle() {
         return jobTitle;
@@ -42,11 +49,13 @@ public class Vacancy {
     }
 
     private String token;
-    public  Vacancy(String jobTitle,int estimatedSalary,String token, List <Requirements> requirements){
+
+    public Vacancy(String jobTitle, int estimatedSalary, String token, List<Requirements> requirements, String activity) {
         setEstimatedSalary(estimatedSalary);
         setJobTitle(jobTitle);
         setRequirements(requirements);
         setToken(token);
+        setActivity(activity);
 
     }
 }

@@ -12,9 +12,17 @@ public class deleteEmployeeDtoRequest {
     public void setToken(String token) {
         this.token = token;
     }
-    private deleteEmployeeDtoRequest(String token){
+
+    private deleteEmployeeDtoRequest(String token) {
 
         setToken(token);
     }
-    public String validate(){return  "error";}
+
+    public String validate() {
+        if (token.isEmpty()) {
+            return "Empty token";
+        }
+
+        return "";
+    }
 }

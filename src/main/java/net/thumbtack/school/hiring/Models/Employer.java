@@ -7,7 +7,7 @@ public class Employer {
     private String email;
     private String login;
     private String password;
-    private String  address;
+    private String address;
     private String companyName;
 
     public String getFirstName() {
@@ -73,7 +73,8 @@ public class Employer {
     private void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
-    public Employer(String firstName, String login, String password, String lastName, String middlename,String address,String companyName,String email){
+
+    public Employer(String firstName, String login, String password, String lastName, String middlename, String address, String companyName, String email) {
         setAddress(address);
         setCompanyName(companyName);
         setEmail(email);
