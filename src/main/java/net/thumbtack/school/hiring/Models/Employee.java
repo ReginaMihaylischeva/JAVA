@@ -10,6 +10,15 @@ public class Employee {
     private String password;
     private boolean activity;
 
+    public String getToken() {
+        return token;
+    }
+
+    private void setToken(String token) {
+        this.token = token;
+    }
+
+    private String token;
     public boolean isActivity() {
         return activity;
     }
@@ -18,7 +27,7 @@ public class Employee {
         this.activity = activity;
     }
 
-    public Employee(String firstName, String login, String password, String lastName, String middlename, int age, String email, boolean activity) {
+    public Employee(String firstName, String login, String password, String lastName, String middlename, int age, String email, boolean activity,String token) {
         setEmail(email);
         setFirstName(firstName);
         setPassword(password);
@@ -27,7 +36,7 @@ public class Employee {
         setMiddlename(middlename);
         setAge(age);
         setActivity(activity);
-
+        setToken(token);
     }
 
     public String getEmail() {

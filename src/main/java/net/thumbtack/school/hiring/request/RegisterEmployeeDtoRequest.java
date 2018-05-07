@@ -108,7 +108,7 @@ public class RegisterEmployeeDtoRequest {
             return "Empty password ";
         }
         if (age < 18 | age > 100) {
-            return "not correct age ";
+            return "not correct age";
         }
 
         return "";

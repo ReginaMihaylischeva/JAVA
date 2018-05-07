@@ -17,7 +17,5 @@ public class RegisterEmployeeDtoResponse {
         setToken(token);
     }
 
-    public String validate() {
-        return "error";
-    }
+
 }

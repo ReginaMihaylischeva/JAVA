@@ -19,7 +19,8 @@ public class EmployeeService {
     public String registerEmployee(String requestJsonStringEmployee)  {
         RegisterEmployeeDtoRequest registerEmployeeDtoRequest = gson.fromJson(requestJsonStringEmployee, RegisterEmployeeDtoRequest.class);
         if (!registerEmployeeDtoRequest.validate().equals("")) {
-            return gson.toJson(registerEmployeeDtoRequest.validate());
+         Error codeError=   new Error( registerEmployeeDtoRequest.validate());
+            return gson.toJson( codeError);
 
 
         }
@@ -31,15 +32,16 @@ public class EmployeeService {
                 registerEmployeeDtoRequest.getMiddlename(),
                 registerEmployeeDtoRequest.getAge(),
                 registerEmployeeDtoRequest.getEmail(),
-                registerEmployeeDtoRequest.isActivity()
+                registerEmployeeDtoRequest.isActivity(),
+                UUID.randomUUID().toString()
         );
         try {
 
-            RegisterEmployeeDtoResponse registerEmployeeDtoResponse = new RegisterEmployeeDtoResponse(dao.insert(newEmployee).toString());
+            RegisterEmployeeDtoResponse registerEmployeeDtoResponse = new RegisterEmployeeDtoResponse(dao.insert(newEmployee));
 
             return gson.toJson(registerEmployeeDtoResponse);
-        }catch (serverException user_already_registered ){
-          return   gson.toJson(new Error(user_already_registered));
+        }catch (serverException ex ){
+            return   gson.toJson(new Error(ex.getErrorCode().getErrorString()));
         }
 
 
@@ -62,7 +64,7 @@ public class EmployeeService {
                 addsummaryDtoRequest.getSkills(),
                 addsummaryDtoRequest.getToken());
         dao.addSummary(summary);
-        return gson.toJson(" ");
+        return gson.toJson("");
     }
 
     public String getVacancies(String requestJsonStringGetVacancies) {

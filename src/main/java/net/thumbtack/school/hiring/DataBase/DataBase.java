@@ -8,20 +8,84 @@ import net.thumbtack.school.hiring.error.serverException;
 
 import java.util.*;
 
-public class DataBase {
-    private Map<String, net.thumbtack.school.hiring.Models.Employee> dataBaseEmployee;
-    private Map<String, net.thumbtack.school.hiring.Models.Employer> dataBaseEmployer;
+public class    DataBase {
+    private static DataBase instance;
+   /* private static DataBase instance;
 
-    private Map<String, List<Skills>> dataBaseSummary;
-    private Map<String, Vacancy> dataBaseVacancies;
+    public static  synchronized DataBase getInstance(Map<String, Employee> dataBaseEmployee,Map<String, Employer> dataBaseEmployer,Map<String, List<Skills>> dataBaseSummary,Map<String, Vacancy> dataBaseVacancies) {
+        if (instance == null) {
+            instance = new DataBase(dataBaseEmployee, dataBaseEmployer, dataBaseSummary,dataBaseVacancies);
+        }
+        return instance;
+    }
+    private DataBase(Map<String, Employee> dataBaseEmployee,Map<String, Employer> dataBaseEmployer,Map<String, List<Skills>> dataBaseSummary,Map<String, Vacancy> dataBaseVacancies) {
+        // Этот код эмулирует медленную инициализацию.
+        this.dataBaseEmployer = dataBaseEmployer;
+        this.dataBaseEmployee = dataBaseEmployee;
+        this.dataBaseSummary = dataBaseSummary;
+        this.dataBaseVacancies = dataBaseVacancies;
 
-    public UUID Insert(net.thumbtack.school.hiring.Models.Employee Employee, String login) throws serverException {
-        for(Employee employee :dataBaseEmployee.values()){
-          if(employee.getLogin().equals(login)){ throw new serverException(ServerErrorCode.user_already_registered); }
-         }
+    }*/
 
-        dataBaseEmployee.put(UUID.fromString(login).toString(), Employee);
-        return UUID.fromString(login);
+/*
+    private DataBase() {}
+
+    private static class SingletonHolder {
+        public static final DataBase instance = new DataBase();
+    }
+
+    public static DataBase getInstance()  {
+        return SingletonHolder.instance;
+
+    }*/
+
+    public static DataBase getInstance() {
+        if (instance == null) {
+          //  synchronized (DataBase.class) {
+            {
+             //   if (instance == null) {
+                    instance = new DataBase();
+              //  }
+            }
+        }
+        return instance;
+    }
+
+    private DataBase() {}
+
+    public Map<String, Employee> getDataBaseEmployee() {
+        return dataBaseEmployee;
+    }
+
+    public Map<String, Employer> getDataBaseEmployer() {
+        return dataBaseEmployer;
+    }
+
+    public Map<String, List<Skills>> getDataBaseSummary() {
+        return dataBaseSummary;
+    }
+
+    public Map<String, Vacancy> getDataBaseVacancies() {
+        return dataBaseVacancies;
+    }
+
+    private    Map<String, Employee> dataBaseEmployee=new HashMap<>();
+    private Map<String, Employer> dataBaseEmployer=new HashMap<>();
+    private Map<String, List<Skills>> dataBaseSummary=new HashMap<>();
+    private  Map<String, Vacancy> dataBaseVacancies=new HashMap<>();
+
+    public String Insert(Employee employee, String login) throws serverException {
+        if(dataBaseEmployee != null) {
+            for (Employee employee1 : dataBaseEmployee.values()) {
+                if (employee1.getLogin().equals(login)) {
+                    throw new serverException(ServerErrorCode.user_already_registered);
+                }
+            }
+        }
+
+        dataBaseEmployee.put(employee.getToken(),employee);
+        return (employee.getToken());
+
     }
 
     public void Delete(DeleteEmployee employee)throws serverException{

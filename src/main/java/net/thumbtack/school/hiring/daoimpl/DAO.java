@@ -10,11 +10,11 @@ import java.util.ArrayDeque;
 import java.util.UUID;
 
 public class DAO implements EmployeeDao, EmployerDao {
-    private DataBase database = new DataBase();
+    private DataBase database= DataBase.getInstance();
 
-    public UUID insert(Employee employee)throws serverException {
+    public String insert(Employee employee)throws serverException {
 
-        return database.Insert(employee, employee.getLogin());
+      return    database.Insert(employee, employee.getLogin());
 
     }
 

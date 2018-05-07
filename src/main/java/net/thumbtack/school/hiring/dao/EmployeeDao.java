@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface EmployeeDao {
-    UUID insert(Employee employee) throws serverException;
+    String  insert(Employee employee) throws serverException;
     void delete(DeleteEmployee employee)throws serverException;
     void addSummary(Summary summary);
     void deleteSummary(Summary summary) throws serverException;
