@@ -32,7 +32,7 @@ public class Skills {
             return "Requirement is empty";
         }
         if (levelProficiency > 6 || levelProficiency < 0) {
-            return "not correct levelProficiency";
+            return "not correct level Proficiency";
         }
         return "";
     }

@@ -1,18 +1,18 @@
 package net.thumbtack.school.hiring.Models;
 
-public class DeleteEmployee {
-
+public class Delete {
     private String token;
+
 
     public String getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    private void setToken(String token) {
         this.token = token;
     }
 
-    public DeleteEmployee(String token) {
+    public Delete(String token) {
 
         setToken(token);
     }

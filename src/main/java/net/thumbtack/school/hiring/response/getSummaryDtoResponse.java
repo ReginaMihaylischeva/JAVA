@@ -1,17 +1,17 @@
 package net.thumbtack.school.hiring.response;
 
-import net.thumbtack.school.hiring.Models.getSummaryResponse;
+import net.thumbtack.school.hiring.Models.ListEmployee;
 
 import java.util.ArrayDeque;
 
 public class getSummaryDtoResponse {
-    private ArrayDeque<getSummaryResponse> Summary;
+    private ArrayDeque<ListEmployee> Summary;
 
-    public ArrayDeque<getSummaryResponse> getSummary() {
+    public ArrayDeque<ListEmployee> getSummary() {
         return Summary;
     }
 
-    private void setSummary(ArrayDeque<getSummaryResponse> summary) {
+    private void setSummary(ArrayDeque<ListEmployee> summary) {
         Summary = summary;
     }
 
@@ -77,7 +77,7 @@ public class getSummaryDtoResponse {
           setMiddlename(middlename);
           setSkills(skills);
       }*/
-    public getSummaryDtoResponse(ArrayDeque<getSummaryResponse> Summary) {
+    public getSummaryDtoResponse(ArrayDeque<ListEmployee> Summary) {
         setSummary(Summary);
     }
 }

@@ -1,22 +1,36 @@
 package net.thumbtack.school.hiring.Models;
 
-import java.util.List;
-
-public class getSummaryResponse {
-    private List<Skills> skills;
+public class ListEmployer {
+    private Vacancy vacancies;
     private String firstName;
     private String lastName;
     private String middlename;
-    private int age;
+    private String address;
+    private String companyName;
     private String email;
 
-
-    public List<Skills> getSkills() {
-        return skills;
+    public Vacancy getRequirements() {
+        return vacancies;
     }
 
-    private void setSkills(List<Skills> skills) {
-        this.skills = skills;
+    private void setRequirements(Vacancy requirements) {
+        this.vacancies = requirements;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    private void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    private void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getFirstName() {
@@ -43,14 +57,6 @@ public class getSummaryResponse {
         this.middlename = middlename;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    private void setAge(int age) {
-        this.age = age;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -59,12 +65,14 @@ public class getSummaryResponse {
         this.email = email;
     }
 
-    public getSummaryResponse(String firstName, String lastName, String middlename, String email, List<Skills> skills, int age) {
-        setAge(age);
+    public ListEmployer(String firstName, String lastName, String middlename, String email, Vacancy vacancies, String address, String companyName) {
+        setAddress(address);
         setEmail(email);
         setFirstName(firstName);
         setLastName(lastName);
         setMiddlename(middlename);
-        setSkills(skills);
+        setCompanyName(companyName);
+        setRequirements(vacancies);
     }
+
 }

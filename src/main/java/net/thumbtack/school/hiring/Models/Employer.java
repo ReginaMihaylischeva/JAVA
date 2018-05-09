@@ -10,6 +10,15 @@ public class Employer {
     private String address;
     private String companyName;
 
+    public String getToken() {
+        return token;
+    }
+
+    private void setToken(String token) {
+        this.token = token;
+    }
+
+    private  String token;
     public String getFirstName() {
         return firstName;
     }
@@ -74,7 +83,7 @@ public class Employer {
         this.companyName = companyName;
     }
 
-    public Employer(String firstName, String login, String password, String lastName, String middlename, String address, String companyName, String email) {
+    public Employer(String firstName, String login, String password, String lastName, String middlename, String address, String companyName, String email,String token) {
         setAddress(address);
         setCompanyName(companyName);
         setEmail(email);
@@ -83,5 +92,6 @@ public class Employer {
         setLogin(login);
         setMiddlename(middlename);
         setPassword(password);
+        setToken(token);
     }
 }

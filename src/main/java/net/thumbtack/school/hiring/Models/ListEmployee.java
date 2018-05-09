@@ -1,36 +1,22 @@
 package net.thumbtack.school.hiring.Models;
 
-public class getVacanciesResponse {
-    private Vacancy vacancies;
+import java.util.List;
+
+public class ListEmployee {
+    private List<Skills> skills;
     private String firstName;
     private String lastName;
     private String middlename;
-    private String address;
-    private String companyName;
+    private int age;
     private String email;
 
-    public Vacancy getRequirements() {
-        return vacancies;
+
+    public List<Skills> getSkills() {
+        return skills;
     }
 
-    private void setRequirements(Vacancy requirements) {
-        this.vacancies = requirements;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    private void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    private void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    private void setSkills(List<Skills> skills) {
+        this.skills = skills;
     }
 
     public String getFirstName() {
@@ -57,6 +43,14 @@ public class getVacanciesResponse {
         this.middlename = middlename;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    private void setAge(int age) {
+        this.age = age;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -65,14 +59,13 @@ public class getVacanciesResponse {
         this.email = email;
     }
 
-    public getVacanciesResponse(String firstName, String lastName, String middlename, String email, Vacancy vacancies, String address, String companyName) {
-        setAddress(address);
+    public ListEmployee(String firstName, String lastName, String middlename, String email, List<Skills> skills, int age) {
+        setAge(age);
         setEmail(email);
         setFirstName(firstName);
         setLastName(lastName);
         setMiddlename(middlename);
-        setCompanyName(companyName);
-        setRequirements(vacancies);
+        setSkills(skills);
     }
-
 }
+

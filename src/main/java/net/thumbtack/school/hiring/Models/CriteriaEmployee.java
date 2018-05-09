@@ -2,7 +2,7 @@ package net.thumbtack.school.hiring.Models;
 
 import java.util.List;
 
-public class getSummary {
+public class CriteriaEmployee {
     private List<Requirements> requirements;
     private boolean checkAllRequirements;
 
@@ -41,7 +41,7 @@ public class getSummary {
         return token;
     }
 
-    public getSummary(List<Requirements> requirements, String token, boolean compulsion, boolean checkAllRequirements) {
+    public CriteriaEmployee(List<Requirements> requirements, String token, boolean compulsion, boolean checkAllRequirements) {
         setRequirements(requirements);
         setCompulsion(compulsion);
         setToken(token);

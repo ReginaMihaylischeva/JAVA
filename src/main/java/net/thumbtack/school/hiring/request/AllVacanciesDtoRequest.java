@@ -1,10 +1,16 @@
 package net.thumbtack.school.hiring.request;
 
+import net.thumbtack.school.hiring.Models.Requirements;
+
+import java.util.List;
+
 public class AllVacanciesDtoRequest {
-    private String allVacancies;
+    private String jobTitle;
+    private int estimatedSalary;
+    private List<Requirements> requirements;
     private String activity;
 
-    public String getActivity() {
+    public String isActivity() {
         return activity;
     }
 
@@ -12,26 +18,61 @@ public class AllVacanciesDtoRequest {
         this.activity = activity;
     }
 
-    public String getAllVacancies() {
-        return allVacancies;
+    public String getJobTitle() {
+        return jobTitle;
     }
 
-    private void setAllVacancies(String allVacancies) {
-        this.allVacancies = allVacancies;
+    private void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
-    public AllVacanciesDtoRequest(String allVacancies, String activity) {
+    public int getEstimatedSalary() {
+        return estimatedSalary;
+    }
+
+    private void setEstimatedSalary(int estimatedSalary) {
+        this.estimatedSalary = estimatedSalary;
+    }
+
+    public List<Requirements> getRequirements() {
+        return requirements;
+    }
+
+    private void setRequirements(List<Requirements> requirements) {
+        this.requirements = requirements;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    private String token;
+
+    public AllVacanciesDtoRequest(String jobTitle, int estimatedSalary, String token, List<Requirements> requirements, String activity) {
+        setEstimatedSalary(estimatedSalary);
+        setJobTitle(jobTitle);
+        setRequirements(requirements);
+        setToken(token);
         setActivity(activity);
-        setAllVacancies(allVacancies);
+
     }
 
     public String validate() {
-        if (!allVacancies.equals("All Vacancies")) {
-            return "not correct request";
+        for (Requirements requirements : requirements) {
+            if (requirements.validate().equals("")) {
+                return requirements.validate();
+            }
         }
-        if (!(activity.equals("yes") | activity.equals("no") | activity.equals("all"))) {
-            return "not correct activity";
+        if (!jobTitle.isEmpty()) {
+            return "Empty job title";
         }
-        return "";
+        if (estimatedSalary != 0) {
+            return "not correct estimated salary";
+        }
+        return  "";
     }
 }

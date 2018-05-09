@@ -1,24 +1,48 @@
 package net.thumbtack.school.hiring.request;
 
+import net.thumbtack.school.hiring.Models.Skills;
+
+import java.util.List;
+
 public class AllSummaryDtoRequest {
-    private String allSummary;
 
-    public String getAllSummary() {
-        return allSummary;
+    private List<Skills> skills;
+
+    private String token;
+
+    public List<Skills> getSkills() {
+        return skills;
     }
 
-    private void setAllSummary(String allSummary) {
-        this.allSummary = allSummary;
+    private void setSkills(List<Skills> skills) {
+        this.skills = skills;
     }
 
-    public AllSummaryDtoRequest(String allSummary) {
-        setAllSummary(allSummary);
+    private void setToken(String token) {
+        this.token = token;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public AllSummaryDtoRequest(List<Skills> skills, String token) {
+        setSkills(skills);
+
+        setToken(token);
+    }
+
 
     public String validate() {
-        if (!allSummary.equals("All summary")) {
-            return "not correct request";
+        if (!token.isEmpty()) {
+            return "token not correct";
         }
+        for (Skills skill : skills) {
+            if (skill.validate().equals("")) {
+                return "not correct skill";
+            }
+        }
+
         return "";
     }
 }

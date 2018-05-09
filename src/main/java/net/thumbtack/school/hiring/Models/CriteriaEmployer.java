@@ -2,12 +2,11 @@ package net.thumbtack.school.hiring.Models;
 
 import java.util.List;
 
-public class getVacancies {
+public class CriteriaEmployer {
     private List<Skills> skills;
     private boolean compulsion;
     private String token;
     private boolean checkAllSkills;
-    private boolean activity;
 
 
     public boolean isCheckAllSkills() {
@@ -43,7 +42,7 @@ public class getVacancies {
         return token;
     }
 
-    public getVacancies(List<Skills> skills, String token, boolean compulsion, boolean checkAllSkills) {
+    public CriteriaEmployer(List<Skills> skills, String token, boolean compulsion, boolean checkAllSkills) {
         setSkills(skills);
         setCompulsion(compulsion);
         setToken(token);

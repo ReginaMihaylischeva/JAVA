@@ -74,7 +74,7 @@ public class EmployeeService {
 
 
         }
-        getVacancies GetVacancies = new getVacancies(
+        CriteriaEmployer CriteriaEmployer = new CriteriaEmployer(
 
                 GetVacanciesDtoRequest.getSkills(),
                 GetVacanciesDtoRequest.getToken(),
@@ -83,23 +83,23 @@ public class EmployeeService {
         );
 
 
-        GetVacansiesDtoResponse getVacansiesDtoResponse = new GetVacansiesDtoResponse(dao.getVacancies(GetVacancies));
+        GetVacansiesDtoResponse getVacansiesDtoResponse = new GetVacansiesDtoResponse(dao.getVacancies(CriteriaEmployer));
         return gson.toJson(getVacansiesDtoResponse);
 
     }
 
     public String deleteEmployee(String requestJsonStringDeleteEmployee) {
-        deleteEmployeeDtoRequest deleteEmployee = gson.fromJson(requestJsonStringDeleteEmployee, deleteEmployeeDtoRequest.class);
+        DeleteDtoRequest deleteEmployee = gson.fromJson(requestJsonStringDeleteEmployee, DeleteDtoRequest.class);
         if (!deleteEmployee.validate().equals("")) {
             return gson.toJson(deleteEmployee.validate());
 
 
         }
-        DeleteEmployee DeleteEemployee = new DeleteEmployee(
+        Delete DeleteEmployee = new Delete(
 
                 deleteEmployee.getToken());
         try {
-            dao.delete(DeleteEemployee);
+            dao.delete(DeleteEmployee);
         }catch (serverException user_does_not_exist ){
             return gson.toJson(new Error(user_does_not_exist));
         }
@@ -109,13 +109,12 @@ public class EmployeeService {
     }
 
     public String deleteSummary(String requestJsonStringDeleteSummary) {
-        deleteSummaryDtoRequest deleteSummary = gson.fromJson(requestJsonStringDeleteSummary, deleteSummaryDtoRequest.class);
+        DeleteDtoRequest deleteSummary = gson.fromJson(requestJsonStringDeleteSummary, DeleteDtoRequest.class);
         if (!deleteSummary.validate().equals("")) {
             return gson.toJson(deleteSummary.validate());
 
         }
-        Summary DeleteSummary = new Summary(
-                deleteSummary.getSkills(),
+        Delete DeleteSummary = new Delete(
                 deleteSummary.getToken());
 
 
@@ -136,9 +135,12 @@ public class EmployeeService {
 
 
         }
-        AllVacancies vacancies = new AllVacancies(
-                allVacancies.getAllVacancies(),
-                allVacancies.getActivity()
+        Vacancy vacancies = new Vacancy(
+                allVacancies.isActivity(),
+                allVacancies.getEstimatedSalary(),
+                allVacancies.getJobTitle(),
+                allVacancies.getRequirements(),
+                allVacancies.getToken()
         );
         AllVacanciesDtoResponse allVacanciesDtoResponse = new AllVacanciesDtoResponse(dao.AllVacancies(vacancies));
 
@@ -146,15 +148,16 @@ public class EmployeeService {
     }
 
     public String editSummary(String requestJsonStringEditSummary) {
-        EditSummaryDtoRequest editResumes = gson.fromJson(requestJsonStringEditSummary, EditSummaryDtoRequest.class);
-        if (!editResumes.validate().equals("")) {
-            return gson.toJson(editResumes.validate());
+        AddSummaryDtoRequest editResume = gson.fromJson(requestJsonStringEditSummary, AddSummaryDtoRequest.class);
+        if (!editResume.validate().equals("")) {
+            return gson.toJson(editResume.validate());
 
         }
-        EditSummary editSummary = new EditSummary(
-                editResumes.getNewSkills(),
-                editResumes.getOldSkills(),
-                editResumes.getToken()
+
+
+      Summary editSummary = new Summary(
+              editResume.getSkills(),
+              editResume.getToken()
 
         );
         try {

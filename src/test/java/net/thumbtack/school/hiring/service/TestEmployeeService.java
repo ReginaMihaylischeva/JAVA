@@ -101,7 +101,7 @@ public class TestEmployeeService {
         assertEquals("",result1);
     }
     @Test
-    public void testAddSummaryWithError() {
+    public void testAddAndEditSummaryWithError() {
         EmployeeService employeeService = new EmployeeService();
 
         RegisterEmployeeDtoRequest Employee1 = new RegisterEmployeeDtoRequest(
@@ -111,7 +111,7 @@ public class TestEmployeeService {
         String jsonResult = employeeService.registerEmployee(jsonRequst);
         RegisterEmployeeDtoResponse result = gson.fromJson(jsonResult, RegisterEmployeeDtoResponse.class);
         Skills skill1=new Skills("Java",2);
-        Skills skill2=new Skills("C#",4);
+        Skills skill2=new Skills("C#",-12);
         Skills skill3=new Skills("Python",3);
         List<Skills> skills= new ArrayList<>();
         skills.add(skill1);
@@ -121,6 +121,15 @@ public class TestEmployeeService {
         String jsonRequest1 = gson.toJson(Summary);
         String jsonResult2 = employeeService.addSummary(jsonRequest1);
         String result1 = gson.fromJson(jsonResult2,String.class);
-        assertEquals("",result1);
+        assertEquals("not correct level Proficiency",result1);
+        Skills skill4=new Skills("",3);
+        List<Skills> skills1= new ArrayList<>();
+        skills1.add(skill4);
+        AddSummaryDtoRequest editSummary=new AddSummaryDtoRequest(skills1,result.getToken());
+        String jsonRequest3 = gson.toJson(editSummary);
+        String jsonResult3 = employeeService.editSummary(jsonRequest3);
+        String result3 = gson.fromJson(jsonResult3,String.class);
+        assertEquals("Requirement is empty",result3);
+
     }
 }

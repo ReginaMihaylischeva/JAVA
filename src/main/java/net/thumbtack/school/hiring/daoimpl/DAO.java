@@ -7,7 +7,6 @@ import net.thumbtack.school.hiring.dao.EmployerDao;
 import net.thumbtack.school.hiring.error.serverException;
 
 import java.util.ArrayDeque;
-import java.util.UUID;
 
 public class DAO implements EmployeeDao, EmployerDao {
     private DataBase database= DataBase.getInstance();
@@ -18,7 +17,7 @@ public class DAO implements EmployeeDao, EmployerDao {
 
     }
 
-    public void delete(DeleteEmployee employee)throws serverException {
+    public void delete(Delete employee)throws serverException {
         database.Delete(employee);
     }
 
@@ -26,20 +25,20 @@ public class DAO implements EmployeeDao, EmployerDao {
         database.AddSummary(summary);
     }
 
-    public void deleteSummary(Summary summary)throws serverException {
+    public void deleteSummary(Delete summary)throws serverException {
         database.deleteSummary(summary);
     }
 
-    public ArrayDeque<getVacanciesResponse> getVacancies(getVacancies GetVacancies) {
-        return database.getVacancies(GetVacancies);
+    public ArrayDeque<ListEmployer> getVacancies(CriteriaEmployer CriteriaEmployer) {
+        return database.getVacancies(CriteriaEmployer);
     }
 
-    public UUID InsertEmployer(Employer employer)throws serverException {
+    public String InsertEmployer(Employer employer)throws serverException {
 
         return database.InsertEmployer(employer, employer.getLogin());
     }
 
-    public void deleteEmployer(DeleteEmployer employer)throws serverException {
+    public void deleteEmployer(Delete employer)throws serverException {
         database.DeleteEmployer(employer);
     }
 
@@ -47,27 +46,27 @@ public class DAO implements EmployeeDao, EmployerDao {
         database.AddVacancy(vacancy);
     }
 
-    public void deleteVacancy(Vacancy vacancy)throws serverException {
+    public void deleteVacancy(Delete vacancy)throws serverException {
         database.deleteVacancy(vacancy);
     }
 
-    public ArrayDeque<getVacanciesResponse> AllVacancies(AllVacancies vacancies) {
+    public ArrayDeque<ListEmployer> AllVacancies(Vacancy vacancies) {
         return database.allVacancies(vacancies);
     }
 
-    public ArrayDeque<getSummaryResponse> getSummary(getSummary requirement) {
+    public ArrayDeque<ListEmployee> getSummary(CriteriaEmployee requirement) {
         return database.getSummary(requirement);
     }
 
-    public ArrayDeque<getSummaryResponse> AllSummary(AllSummary summary) {
+    public ArrayDeque<ListEmployee> AllSummary(Summary summary) {
         return database.allSummary(summary);
     }
 
-    public void editSummary(EditSummary editSummary)throws serverException {
+    public void editSummary(Summary editSummary)throws serverException {
         database.editSummary(editSummary);
     }
 
-    public void editVacancy(EditVacancy editVacancy)throws serverException {
+    public void editVacancy(Vacancy editVacancy)throws serverException {
         database.editVacancy(editVacancy);
     }
 }

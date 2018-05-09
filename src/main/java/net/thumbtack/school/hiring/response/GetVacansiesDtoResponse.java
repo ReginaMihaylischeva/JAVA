@@ -1,17 +1,17 @@
 package net.thumbtack.school.hiring.response;
 
-import net.thumbtack.school.hiring.Models.getVacanciesResponse;
+import net.thumbtack.school.hiring.Models.ListEmployer;
 
 import java.util.ArrayDeque;
 
 public class GetVacansiesDtoResponse {
-    private ArrayDeque<getVacanciesResponse> Vacancies;
+    private ArrayDeque<ListEmployer> Vacancies;
 
-    public ArrayDeque<getVacanciesResponse> getVacancies() {
+    public ArrayDeque<ListEmployer> getVacancies() {
         return Vacancies;
     }
 
-    private void setVacancies(ArrayDeque<getVacanciesResponse> vacancies) {
+    private void setVacancies(ArrayDeque<ListEmployer> vacancies) {
         Vacancies = vacancies;
     }
 
@@ -87,7 +87,7 @@ public class GetVacansiesDtoResponse {
         setCompanyName(companyName);
         setRequirements(vacancies);
     }*/
-    public GetVacansiesDtoResponse(ArrayDeque<getVacanciesResponse> Vacancies) {
+    public GetVacansiesDtoResponse(ArrayDeque<ListEmployer> Vacancies) {
         setVacancies(Vacancies);
     }
 }

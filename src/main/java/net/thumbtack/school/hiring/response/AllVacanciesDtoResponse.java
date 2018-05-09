@@ -1,23 +1,21 @@
 package net.thumbtack.school.hiring.response;
 
-import net.thumbtack.school.hiring.Models.Vacancy;
-import net.thumbtack.school.hiring.Models.getVacanciesResponse;
+import net.thumbtack.school.hiring.Models.ListEmployer;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 
 public class AllVacanciesDtoResponse {
-    private ArrayDeque<getVacanciesResponse> getVacancies;
+    private ArrayDeque<ListEmployer> getVacancies;
 
-    public ArrayDeque<getVacanciesResponse> getRequirements() {
+    public ArrayDeque<ListEmployer> getRequirements() {
         return getVacancies;
     }
 
-    public void setRequirements(ArrayDeque<getVacanciesResponse> getVacancies) {
+    public void setRequirements(ArrayDeque<ListEmployer> getVacancies) {
         this.getVacancies = getVacancies;
     }
 
-    public AllVacanciesDtoResponse(ArrayDeque<getVacanciesResponse> getVacancies) {
+    public AllVacanciesDtoResponse(ArrayDeque<ListEmployer> getVacancies) {
         setRequirements(getVacancies);
 
     }

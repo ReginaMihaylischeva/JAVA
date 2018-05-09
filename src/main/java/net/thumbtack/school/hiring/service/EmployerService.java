@@ -9,6 +9,8 @@ import net.thumbtack.school.hiring.response.AllSummaryDtoResponse;
 import net.thumbtack.school.hiring.response.RegisterEmployerDtoResponse;
 import net.thumbtack.school.hiring.response.getSummaryDtoResponse;
 
+import java.util.UUID;
+
 
 public class EmployerService {
     private Gson gson = new Gson();
@@ -29,9 +31,10 @@ public class EmployerService {
                 registerEmployerDtoReques.getMiddlename(),
                 registerEmployerDtoReques.getEmail(),
                 registerEmployerDtoReques.getAddress(),
-                registerEmployerDtoReques.getCompanyName());
+                registerEmployerDtoReques.getCompanyName(),
+                UUID.randomUUID().toString());
         try {
-            RegisterEmployerDtoResponse registerEmployerDtoResponse = new RegisterEmployerDtoResponse(dao.InsertEmployer(employer).toString());
+            RegisterEmployerDtoResponse registerEmployerDtoResponse = new RegisterEmployerDtoResponse(dao.InsertEmployer(employer));
 
             return gson.toJson(registerEmployerDtoResponse);
         } catch (serverException user_already_registered) {
@@ -60,7 +63,7 @@ public class EmployerService {
         if (!getSummaryDtoRequest.validate().equals("")) {
             return gson.toJson(getSummaryDtoRequest.validate());
         }
-        getSummary requirements = new getSummary(
+        CriteriaEmployee requirements = new CriteriaEmployee(
                 getSummaryDtoRequest.getRequirements(),
                 getSummaryDtoRequest.getToken(),
                 getSummaryDtoRequest.isCompulsion(),
@@ -74,13 +77,13 @@ public class EmployerService {
     }
 
     public String deleteEmployer(String requestJsonStringdeleteEmployer) {
-        deleteEmployerDtoRequest deleteEmployer = gson.fromJson(requestJsonStringdeleteEmployer, deleteEmployerDtoRequest.class);
+        DeleteDtoRequest deleteEmployer = gson.fromJson(requestJsonStringdeleteEmployer, DeleteDtoRequest.class);
         if (!deleteEmployer.validate().equals("")) {
             return gson.toJson(deleteEmployer.validate().equals(""));
 
 
         }
-        DeleteEmployer DeleteEmployee = new DeleteEmployer(
+        Delete DeleteEmployee = new Delete(
 
                 deleteEmployer.getToken());
         try {
@@ -92,16 +95,13 @@ public class EmployerService {
     }
 
     public String deleteVacancy(String requestJsonStringDeleteVacancy) {
-        deleteVacancyDtoRequest deleteVacancyDtoRequest = gson.fromJson(requestJsonStringDeleteVacancy, deleteVacancyDtoRequest.class);
+        DeleteDtoRequest deleteVacancyDtoRequest = gson.fromJson(requestJsonStringDeleteVacancy, DeleteDtoRequest.class);
         if (!deleteVacancyDtoRequest.validate().equals("")) {
             return gson.toJson(deleteVacancyDtoRequest.validate());
         }
-        Vacancy vacancy = new Vacancy(
-                deleteVacancyDtoRequest.getJobTitle(),
-                deleteVacancyDtoRequest.getEstimatedSalary(),
-                deleteVacancyDtoRequest.getToken(),
-                deleteVacancyDtoRequest.getRequirements(),
-                deleteVacancyDtoRequest.isActivity()
+        Delete vacancy = new Delete(
+
+                deleteVacancyDtoRequest.getToken()
         );
         try {
             dao.deleteVacancy(vacancy);
@@ -118,8 +118,9 @@ public class EmployerService {
             return gson.toJson(allSummary.validate());
         }
 
-        AllSummary Summary = new AllSummary(
-                allSummary.getAllSummary()
+        Summary Summary = new Summary(
+                allSummary.getSkills(),
+                allSummary.getToken()
         );
         AllSummaryDtoResponse allSummaryDtoResponse = new AllSummaryDtoResponse(dao.AllSummary(Summary));
 
@@ -127,15 +128,17 @@ public class EmployerService {
     }
 
     public String editVacancy(String requestJsonStringEditVacancy) {
-        EditVacancyDtoRequest editVacancyDtoRequest = gson.fromJson(requestJsonStringEditVacancy, EditVacancyDtoRequest.class);
+        AddVacancyDtoRequest editVacancyDtoRequest = gson.fromJson(requestJsonStringEditVacancy, AddVacancyDtoRequest.class);
         if (!editVacancyDtoRequest.validate().equals("")) {
             return gson.toJson(editVacancyDtoRequest.validate());
         }
-        EditVacancy editVacancy = new EditVacancy(
+        Vacancy editVacancy = new Vacancy(
+                editVacancyDtoRequest.getJobTitle(),
+                editVacancyDtoRequest.getEstimatedSalary(),
+                editVacancyDtoRequest.getToken(),
+                editVacancyDtoRequest.getRequirements(),
+                editVacancyDtoRequest.isActivity()
 
-                editVacancyDtoRequest.getNewRequirements(),
-                editVacancyDtoRequest.getOldRequirements(),
-                editVacancyDtoRequest.getToken()
         );
         try {
             dao.editVacancy(editVacancy);
