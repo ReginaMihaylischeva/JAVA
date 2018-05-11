@@ -139,6 +139,7 @@ public class TestEmployeeService {
         String result1 = gson.fromJson(jsonResult2, String.class);
         assertEquals("not correct level Proficiency", result1);
         Skills skill4 = new Skills("", 3);
+        skills.remove(skill2);
         skills.add(skill4);
 
         String jsonRequest3 = gson.toJson(Summary);
