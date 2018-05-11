@@ -70,7 +70,7 @@ public class AllVacanciesDtoRequest {
         if (!jobTitle.isEmpty()) {
             return "Empty job title";
         }
-        if (estimatedSalary != 0) {
+        if (estimatedSalary >= 0) {
             return "not correct estimated salary";
         }
         return  "";

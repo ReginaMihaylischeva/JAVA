@@ -183,7 +183,7 @@ public class DataBase {
         dataBaseSummary.remove(summary.getToken());
     }
 
-    public String InsertEmployer(net.thumbtack.school.hiring.Models.Employer Employer, String login) throws serverException {
+    public String InsertEmployer(Employer Employer, String login) throws serverException {
         for (Employer employer : dataBaseEmployer.values()) {
             if (employer.getLogin().equals(login)) {
                 throw new serverException(ServerErrorCode.user_already_registered);

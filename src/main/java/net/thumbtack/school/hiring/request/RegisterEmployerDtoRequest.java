@@ -74,7 +74,7 @@ public class RegisterEmployerDtoRequest {
         this.companyName = companyName;
     }
 
-    RegisterEmployerDtoRequest(String firstName, String login, String password, String lastName, String middlename, String address, String companyName, String email) {
+    public  RegisterEmployerDtoRequest(String firstName, String login, String password, String lastName, String middlename, String address, String companyName, String email) {
         setAddress(address);
         setCompanyName(companyName);
         setEmail(email);
@@ -103,6 +103,9 @@ public class RegisterEmployerDtoRequest {
         }
         if (address.isEmpty()) {
             return "Empty address ";
+        }
+        if (!email.contains("@")) {
+            return "Not correct email";
         }
         if (companyName.isEmpty()) {
             return "Empty company  name";

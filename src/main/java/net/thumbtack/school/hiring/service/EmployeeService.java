@@ -44,11 +44,7 @@ public class EmployeeService {
             return   gson.toJson(new Error(ex.getErrorCode().getErrorString()));
         }
 
-
-
-
-
-    }
+   }
 
 
     public String addSummary(String requestJsonStringAddSummary) {
@@ -100,12 +96,12 @@ public class EmployeeService {
                 deleteEmployee.getToken());
         try {
             dao.delete(DeleteEmployee);
-        }catch (serverException user_does_not_exist ){
-            return gson.toJson(new Error(user_does_not_exist));
+        }catch (serverException ex ){
+            return gson.toJson(new Error(ex.getErrorCode().getErrorString()));
         }
 
 
-        return gson.toJson(" ");
+        return gson.toJson("");
     }
 
     public String deleteSummary(String requestJsonStringDeleteSummary) {
@@ -120,8 +116,8 @@ public class EmployeeService {
 
         try {
             dao.deleteSummary(DeleteSummary);
-        }catch (serverException summary_does_not_exist ){
-            return gson.toJson(new Error(summary_does_not_exist));
+        }catch (serverException ex ){
+            return gson.toJson(new Error(ex.getErrorCode().getErrorString()));
         }
         return gson.toJson("");
 

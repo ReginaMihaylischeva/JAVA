@@ -19,7 +19,8 @@ public class EmployerService {
     public String registerEmployer(String requestJsonStringEmployer) {
         RegisterEmployerDtoRequest registerEmployerDtoReques = gson.fromJson(requestJsonStringEmployer, RegisterEmployerDtoRequest.class);
         if (!registerEmployerDtoReques.validate().equals("")) {
-            return "error";
+            Error codeError=   new Error(registerEmployerDtoReques.validate());
+            return  gson.toJson(   codeError);
 
 
         }
@@ -29,16 +30,18 @@ public class EmployerService {
                 registerEmployerDtoReques.getPassword(),
                 registerEmployerDtoReques.getLastName(),
                 registerEmployerDtoReques.getMiddlename(),
-                registerEmployerDtoReques.getEmail(),
                 registerEmployerDtoReques.getAddress(),
                 registerEmployerDtoReques.getCompanyName(),
+                registerEmployerDtoReques.getEmail(),
+
+
                 UUID.randomUUID().toString());
         try {
             RegisterEmployerDtoResponse registerEmployerDtoResponse = new RegisterEmployerDtoResponse(dao.InsertEmployer(employer));
 
             return gson.toJson(registerEmployerDtoResponse);
-        } catch (serverException user_already_registered) {
-            return gson.toJson(new Error(user_already_registered));
+        } catch (serverException ex) {
+            return gson.toJson(new Error(ex.getErrorCode().getErrorString()));
         }
     }
 
@@ -89,8 +92,8 @@ public class EmployerService {
         try {
             dao.deleteEmployer(DeleteEmployee);
             return gson.toJson("");
-        } catch (serverException user_does_not_exist) {
-            return gson.toJson(new Error(user_does_not_exist));
+        } catch (serverException ex) {
+            return gson.toJson(new Error(ex.getErrorCode().getErrorString()));
         }
     }
 
@@ -107,8 +110,8 @@ public class EmployerService {
             dao.deleteVacancy(vacancy);
             return gson.toJson("");
 
-        } catch (serverException vacancy_does_not_exist) {
-            return gson.toJson(new Error(vacancy_does_not_exist));
+        } catch (serverException ex) {
+            return gson.toJson(new Error(ex.getErrorCode().getErrorString()));
         }
     }
 

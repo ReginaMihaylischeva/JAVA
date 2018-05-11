@@ -72,7 +72,7 @@ public class AddVacancyDtoRequest {
             return "Empty job title";
         }
         if (estimatedSalary < 0) {
-            return "not correct estimated salary";
+            return "Not correct estimated salary";
         }
 
 
