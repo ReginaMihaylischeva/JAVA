@@ -22,7 +22,7 @@ public class Server  {
         if (!saveDataFileName.isEmpty()) {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(saveDataFileName))) {
 
-                gson.toJson(DataBase.class, bw);
+                gson.toJson(DataBase.getInstance(), bw);
             }
         }
 

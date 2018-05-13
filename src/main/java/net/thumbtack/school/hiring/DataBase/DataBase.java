@@ -10,40 +10,12 @@ import java.util.*;
 
 public class DataBase {
     private static DataBase instance;
-   /* private static DataBase instance;
 
-    public static  synchronized DataBase getInstance(Map<String, Employee> dataBaseEmployee,Map<String, Employer> dataBaseEmployer,Map<String, List<Skills>> dataBaseSummary,Map<String, Vacancy> dataBaseVacancies) {
-        if (instance == null) {
-            instance = new DataBase(dataBaseEmployee, dataBaseEmployer, dataBaseSummary,dataBaseVacancies);
-        }
-        return instance;
-    }
-    private DataBase(Map<String, Employee> dataBaseEmployee,Map<String, Employer> dataBaseEmployer,Map<String, List<Skills>> dataBaseSummary,Map<String, Vacancy> dataBaseVacancies) {
-        // Этот код эмулирует медленную инициализацию.
-        this.dataBaseEmployer = dataBaseEmployer;
-        this.dataBaseEmployee = dataBaseEmployee;
-        this.dataBaseSummary = dataBaseSummary;
-        this.dataBaseVacancies = dataBaseVacancies;
-
-    }*/
-
-/*
-    private DataBase() {}
-
-    private static class SingletonHolder {
-        public static final DataBase instance = new DataBase();
-    }
-
-    public static DataBase getInstance()  {
-        return SingletonHolder.instance;
-
-    }*/
 
     public static DataBase getInstance() {
         if (instance == null) {
             synchronized (DataBase.class) {
                 {
-                    //   if (instance == null) {
                     instance = new DataBase();
                 }
             }
@@ -54,9 +26,7 @@ public class DataBase {
     private DataBase() {
     }
 
-    public Map<String, Employee> getDataBaseEmployee() {
-        return dataBaseEmployee;
-    }
+    public Map<String, Employee> getDataBaseEmployee() {return dataBaseEmployee; }
 
     public Map<String, Employer> getDataBaseEmployer() {
         return dataBaseEmployer;
@@ -114,7 +84,7 @@ public class DataBase {
                     if (skills.getNameRequirement().equals(Requirement.getNameRequirement()) & skills.getLevelProficiency() >= Requirement.getLevelProficiency() & !CriteriaEmployer.isCompulsion() & CriteriaEmployer.isCheckAllSkills()) {
                         count++;
                     }
-                    if (skills.getNameRequirement().equals(Requirement.getNameRequirement()) & skills.getLevelProficiency() >= Requirement.getLevelProficiency() & CriteriaEmployer.isCompulsion() & CriteriaEmployer.isCheckAllSkills()) {
+                    if (skills.getNameRequirement().equals(Requirement.getNameRequirement()) & skills.getLevelProficiency() >= Requirement.getLevelProficiency() & CriteriaEmployer.isCompulsion() & CriteriaEmployer.isCheckAllSkills() &skills.getLevelProficiency() != 0) {
                         count++;
                     }
                     if (skills.getNameRequirement().equals(Requirement.getNameRequirement()) & skills.getLevelProficiency() == 0 & CriteriaEmployer.isCheckAllSkills()) {
@@ -130,8 +100,8 @@ public class DataBase {
 
             if (count == CriteriaEmployer.getSkills().size() & CriteriaEmployer.isCheckAllSkills() & vacancies.isActivity().equals("yes")) {
                 Object firstKey = dataBaseVacancies.keySet().toArray()[0];
-                Object valueForFirstKey = dataBaseVacancies.get(firstKey.toString());
-                Employer sdf = dataBaseEmployer.get(valueForFirstKey.toString());
+                Vacancy valueForFirstKey = dataBaseVacancies.get(firstKey.toString());
+                Employer sdf = dataBaseEmployer.get(valueForFirstKey.getToken());
                 ListEmployer v = new ListEmployer(
 
                         sdf.getFirstName(),
@@ -146,9 +116,9 @@ public class DataBase {
                 NewList.add(v);
             }
             if (count != 0 & !CriteriaEmployer.isCheckAllSkills() & vacancies.isActivity().equals("yes")) {
-                Object firstKey = dataBaseVacancies.keySet().toArray()[0];
-                Object valueForFirstKey = dataBaseVacancies.get(firstKey.toString());
-                Employer sdf = dataBaseEmployer.get(valueForFirstKey.toString());
+                Object firstKey = dataBaseVacancies.keySet().toArray()[1];
+                Vacancy valueForFirstKey = dataBaseVacancies.get(firstKey.toString());
+                Employer sdf = dataBaseEmployer.get(valueForFirstKey.getToken());
                 ListEmployer v = new ListEmployer(
 
                         sdf.getFirstName(),
@@ -254,7 +224,7 @@ public class DataBase {
                     if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & skill.getLevelProficiency() >= requirement.getLevelProficiency() & !requirements.isCompulsion() & requirements.isCheckAllRequirements()) {
                         count++;
                     }
-                    if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & skill.getLevelProficiency() >= requirement.getLevelProficiency() & requirements.isCompulsion() & requirements.isCheckAllRequirements()) {
+                    if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & skill.getLevelProficiency() >= requirement.getLevelProficiency() & requirements.isCompulsion() & requirements.isCheckAllRequirements()&requirement.getLevelProficiency() != 0) {
                         count++;
                     }
                     if (skill.getNameRequirement().equals(requirement.getNameRequirement()) & requirement.getLevelProficiency() == 0 & requirements.isCheckAllRequirements()) {
@@ -270,8 +240,7 @@ public class DataBase {
             }
             if (count == requirements.getRequirements().size() & requirements.isCheckAllRequirements()) {
                 Object firstKey = dataBaseSummary.keySet().toArray()[0];
-                Object valueForFirstKey = dataBaseSummary.get(firstKey.toString());
-                Employee sdf = dataBaseEmployee.get(valueForFirstKey.toString());
+                Employee sdf = dataBaseEmployee.get(firstKey.toString());
                 ListEmployee v = new ListEmployee(
 
                         sdf.getFirstName(),
@@ -286,9 +255,8 @@ public class DataBase {
                 }
             }
             if (count != 0 & !requirements.isCheckAllRequirements()) {
-                Object firstKey = dataBaseSummary.keySet().toArray()[0];
-                Object valueForFirstKey = dataBaseSummary.get(firstKey.toString());
-                Employee sdf = dataBaseEmployee.get(valueForFirstKey.toString());
+                Object firstKey = dataBaseSummary.keySet().toArray()[1];
+                Employee sdf = dataBaseEmployee.get(firstKey.toString());
                 ListEmployee v = new ListEmployee(
 
                         sdf.getFirstName(),

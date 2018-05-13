@@ -4,10 +4,11 @@ import com.google.gson.Gson;
 import net.thumbtack.school.hiring.DataBase.DataBase;
 import net.thumbtack.school.hiring.Models.Employer;
 import net.thumbtack.school.hiring.Models.Requirements;
-import net.thumbtack.school.hiring.request.AddVacancyDtoRequest;
-import net.thumbtack.school.hiring.request.DeleteDtoRequest;
-import net.thumbtack.school.hiring.request.RegisterEmployerDtoRequest;
+import net.thumbtack.school.hiring.Models.Skills;
+import net.thumbtack.school.hiring.request.*;
+import net.thumbtack.school.hiring.response.RegisterEmployeeDtoResponse;
 import net.thumbtack.school.hiring.response.RegisterEmployerDtoResponse;
+import net.thumbtack.school.hiring.response.getSummaryDtoResponse;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -182,6 +183,223 @@ public class TestEmployerService {
         Error result1 = gson.fromJson(jsonResultDelete, Error.class);
         assertEquals("Vacancy does not exist", result1.getMessage());
     }
+    @Test
+    public void testGetSummary1() {
+        EmployeeService employeeService = new EmployeeService();
+        EmployerService employerService = new EmployerService();
 
+        Skills skill1 = new Skills("Java", 3);
+        Skills skill2 = new Skills("C#", 5);
+        Skills skill3 = new Skills("Python", 3);
+        List<Skills> skills = new ArrayList<>();
+        skills.add(skill1);
+        skills.add(skill2);
+        skills.add(skill3);
+
+        RegisterEmployeeDtoRequest Employee = new RegisterEmployeeDtoRequest(
+                "Иван", "Ivan", "123456", "Иванов",
+                "", 44, "Ivan@rt", true);
+        String jsonResult = employeeService.registerEmployee(gson.toJson(Employee));
+        RegisterEmployeeDtoResponse result = gson.fromJson(jsonResult, RegisterEmployeeDtoResponse.class);
+
+        Requirements Requirement1 = new Requirements("Java", true, 2);
+        Requirements Requirement2 = new Requirements("C#", false, 4);
+        Requirements Requirement3 = new Requirements("Python", true, 3);
+        List<Requirements> Requirement = new ArrayList<>();
+        Requirement.add(Requirement1);
+        Requirement.add(Requirement2);
+        Requirement.add(Requirement3);
+        AddSummaryDtoRequest summary = new AddSummaryDtoRequest(skills, result.getToken());
+        String jsonRequestAddSummary = gson.toJson(summary);
+        employeeService.addSummary(jsonRequestAddSummary);
+
+        GetSummaryDtoRequest Summary=new GetSummaryDtoRequest(Requirement,UUID.randomUUID().toString(),false,true);
+        String jsonRequestGetSummary = gson.toJson(Summary);
+        String jsonResultGetSummary = employerService.getSummary(jsonRequestGetSummary);
+        getSummaryDtoResponse resultGetSummary=gson.fromJson(jsonResultGetSummary, getSummaryDtoResponse.class);
+        assertTrue(resultGetSummary.getSummary().size()==1);
+        assertEquals(skills.get(0).getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(0).getNameRequirement());
+        assertEquals(skills.get(0).getLevelProficiency(),resultGetSummary.getSummary().getFirst().getSkills().get(0).getLevelProficiency());
+
+        assertEquals(skills.get(1).getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(1).getNameRequirement());
+        assertEquals(skills.get(1).getLevelProficiency(),resultGetSummary.getSummary().getFirst().getSkills().get(1).getLevelProficiency());
+
+        assertEquals(skills.get(2).getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getNameRequirement());
+        assertEquals(skills.get(2).getLevelProficiency(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getLevelProficiency());
+
+
+    }
+    @Test
+    public void testGetSummary2() {
+        EmployeeService employeeService = new EmployeeService();
+        EmployerService employerService = new EmployerService();
+
+        Skills skill1 = new Skills("Java", 2);
+        Skills skill2 = new Skills("C#", 3);
+        Skills skill3 = new Skills("Python", 5);
+        List<Skills> skills = new ArrayList<>();
+        skills.add(skill1);
+        skills.add(skill2);
+        skills.add(skill3);
+
+        RegisterEmployeeDtoRequest Employee = new RegisterEmployeeDtoRequest(
+                "Иван", "Ivan", "123456", "Иванов",
+                "", 44, "Ivan@rt", true);
+        String jsonResult = employeeService.registerEmployee(gson.toJson(Employee));
+        RegisterEmployeeDtoResponse result = gson.fromJson(jsonResult, RegisterEmployeeDtoResponse.class);
+
+        Requirements Requirement1 = new Requirements("Java", true, 1);
+        Requirements Requirement2 = new Requirements("C#", false, 3);
+        Requirements Requirement3 = new Requirements("Python", true, 2);
+        List<Requirements> Requirement = new ArrayList<>();
+        Requirement.add(Requirement1);
+        Requirement.add(Requirement2);
+        Requirement.add(Requirement3);
+        AddSummaryDtoRequest summary = new AddSummaryDtoRequest(skills, result.getToken());
+        String jsonRequestAddSummary = gson.toJson(summary);
+        employeeService.addSummary(jsonRequestAddSummary);
+
+        GetSummaryDtoRequest Summary=new GetSummaryDtoRequest(Requirement,UUID.randomUUID().toString(),true,true);
+        String jsonRequestGetSummary = gson.toJson(Summary);
+        String jsonResultGetSummary = employerService.getSummary(jsonRequestGetSummary);
+        getSummaryDtoResponse resultGetSummary=gson.fromJson(jsonResultGetSummary, getSummaryDtoResponse.class);
+        assertTrue(resultGetSummary.getSummary().size()==1);
+        assertEquals(skills.get(0).getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(0).getNameRequirement());
+        assertEquals(skills.get(0).getLevelProficiency(),resultGetSummary.getSummary().getFirst().getSkills().get(0).getLevelProficiency());
+
+        assertEquals(skills.get(1).getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(1).getNameRequirement());
+        assertEquals(skills.get(1).getLevelProficiency(),resultGetSummary.getSummary().getFirst().getSkills().get(1).getLevelProficiency());
+
+        assertEquals(skills.get(2).getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getNameRequirement());
+        assertEquals(skills.get(2).getLevelProficiency(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getLevelProficiency());
+
+
+    }
+    @Test
+    public void  testGetSummary3(){
+        EmployeeService employeeService = new EmployeeService();
+        EmployerService employerService = new EmployerService();
+
+        Skills skill1 = new Skills("Java", 2);
+        Skills skill2 = new Skills("C#", 4);
+        Skills skill3 = new Skills("Python", 3);
+        List<Skills> skills = new ArrayList<>();
+        skills.add(skill1);
+        skills.add(skill2);
+        skills.add(skill3);
+
+        RegisterEmployeeDtoRequest Employee = new RegisterEmployeeDtoRequest(
+                "Иван", "Ivan", "123456", "Иванов",
+                "", 44, "Ivan@rt", true);
+        String jsonResult = employeeService.registerEmployee(gson.toJson(Employee));
+        RegisterEmployeeDtoResponse result = gson.fromJson(jsonResult, RegisterEmployeeDtoResponse.class);
+
+        Requirements Requirement1 = new Requirements("Java", true, 0);
+        Requirements Requirement2 = new Requirements("C#", false, 0);
+        Requirements Requirement3 = new Requirements("Python", true, 0);
+        List<Requirements> Requirement = new ArrayList<>();
+        Requirement.add(Requirement1);
+        Requirement.add(Requirement2);
+        Requirement.add(Requirement3);
+        AddSummaryDtoRequest summary = new AddSummaryDtoRequest(skills, result.getToken());
+        String jsonRequestAddSummary = gson.toJson(summary);
+        employeeService.addSummary(jsonRequestAddSummary);
+
+        GetSummaryDtoRequest Summary=new GetSummaryDtoRequest(Requirement,UUID.randomUUID().toString(),true,true);
+        String jsonRequestGetSummary = gson.toJson(Summary);
+        String jsonResultGetSummary = employerService.getSummary(jsonRequestGetSummary);
+        getSummaryDtoResponse resultGetSummary=gson.fromJson(jsonResultGetSummary, getSummaryDtoResponse.class);
+        assertTrue(resultGetSummary.getSummary().size()==1);
+        assertEquals(skills.get(0).getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(0).getNameRequirement());
+        assertEquals(skills.get(0).getLevelProficiency(),resultGetSummary.getSummary().getFirst().getSkills().get(0).getLevelProficiency());
+
+        assertEquals(skills.get(1).getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(1).getNameRequirement());
+        assertEquals(skills.get(1).getLevelProficiency(),resultGetSummary.getSummary().getFirst().getSkills().get(1).getLevelProficiency());
+
+        assertEquals(skills.get(2).getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getNameRequirement());
+        assertEquals(skills.get(2).getLevelProficiency(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getLevelProficiency());
+    }
+    @Test
+    public void  testGetSummary4(){
+        EmployeeService employeeService = new EmployeeService();
+        EmployerService employerService = new EmployerService();
+
+        Skills skill1 = new Skills("Java", 2);
+        Skills skill2 = new Skills("C#", 4);
+        Skills skill3 = new Skills("Python", 3);
+        List<Skills> skills = new ArrayList<>();
+        skills.add(skill1);
+        skills.add(skill2);
+        skills.add(skill3);
+        RegisterEmployeeDtoRequest Employee = new RegisterEmployeeDtoRequest(
+                "Иван", "Ivan", "123456", "Иванов",
+                "", 44, "Ivan@rt", true);
+        String jsonResult = employeeService.registerEmployee(gson.toJson(Employee));
+        RegisterEmployeeDtoResponse result = gson.fromJson(jsonResult, RegisterEmployeeDtoResponse.class);
+        AddSummaryDtoRequest summary = new AddSummaryDtoRequest(skills, result.getToken());
+        String jsonRequestAddSummary = gson.toJson(summary);
+        employeeService.addSummary(jsonRequestAddSummary);
+
+        Skills skill11 = new Skills("Java", 2);
+        Skills skill21 = new Skills("C", 4);
+        Skills skill31 = new Skills("Python", 3);
+        List<Skills> skills1 = new ArrayList<>();
+        skills1.add(skill11);
+        skills1.add(skill21);
+        skills1.add(skill31);
+        RegisterEmployeeDtoRequest Employee1 = new RegisterEmployeeDtoRequest(
+                "Иван", "Ivan1", "123456", "Иванов",
+                "", 44, "Ivan1@rt", true);
+        String jsonResult1 = employeeService.registerEmployee(gson.toJson(Employee1));
+        RegisterEmployeeDtoResponse result1 = gson.fromJson(jsonResult1, RegisterEmployeeDtoResponse.class);
+        AddSummaryDtoRequest summary1 = new AddSummaryDtoRequest(skills1, result1.getToken());
+        String jsonRequestAddSummary1 = gson.toJson(summary1);
+        employeeService.addSummary(jsonRequestAddSummary1);
+
+        Skills skill12 = new Skills("Java", 2);
+        Skills skill22 = new Skills("C", 4);
+        Skills skill32 = new Skills("Py", 3);
+        List<Skills> skills2 = new ArrayList<>();
+        skills2.add(skill12);
+        skills2.add(skill22);
+        skills2.add(skill32);
+        RegisterEmployeeDtoRequest Employee2 = new RegisterEmployeeDtoRequest(
+                "Иван", "Ivan2", "123456", "Иванов",
+                "", 44, "Ivan2@rt", true);
+        String jsonResult2 = employeeService.registerEmployee(gson.toJson(Employee2));
+        RegisterEmployeeDtoResponse result2 = gson.fromJson(jsonResult2, RegisterEmployeeDtoResponse.class);
+        AddSummaryDtoRequest summary2 = new AddSummaryDtoRequest(skills2, result2.getToken());
+        String jsonRequestAddSummary2 = gson.toJson(summary2);
+        employeeService.addSummary(jsonRequestAddSummary2);
+
+        Requirements Requirement1 = new Requirements("Java", true, 1);
+        Requirements Requirement2 = new Requirements("C#", false, 2);
+        Requirements Requirement3 = new Requirements("Python", true, 3);
+        List<Requirements> Requirement = new ArrayList<>();
+        Requirement.add(Requirement1);
+        Requirement.add(Requirement2);
+        Requirement.add(Requirement3);
+
+        GetSummaryDtoRequest Summary=new GetSummaryDtoRequest(Requirement,UUID.randomUUID().toString(),false,false);
+        String jsonRequestGetSummary = gson.toJson(Summary);
+        String jsonResultGetSummary = employerService.getSummary(jsonRequestGetSummary);
+        getSummaryDtoResponse resultGetSummary=gson.fromJson(jsonResultGetSummary, getSummaryDtoResponse.class);
+        assertTrue(resultGetSummary.getSummary().size()==3);
+
+        assertEquals(skill1.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(0).getNameRequirement());
+        assertEquals(skill2.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(1).getNameRequirement());
+        assertEquals(skill3.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getNameRequirement());
+        resultGetSummary.getSummary().removeFirst();
+
+        assertEquals(skill11.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(0).getNameRequirement());
+        assertEquals(skill21.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(1).getNameRequirement());
+        assertEquals(skill31.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getNameRequirement());
+        resultGetSummary.getSummary().removeFirst();
+
+        assertEquals(skill12.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(0).getNameRequirement());
+        assertEquals(skill22.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(1).getNameRequirement());
+        assertEquals(skill32.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getNameRequirement());
+        resultGetSummary.getSummary().removeFirst();
+    }
 
 }
