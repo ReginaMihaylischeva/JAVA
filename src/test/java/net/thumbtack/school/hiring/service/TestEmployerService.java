@@ -50,6 +50,8 @@ public class TestEmployerService {
 
     @Test
     public void testRegisterEmployer() {
+        DataBase.getInstance().getDataBaseEmployer().clear();
+
         EmployerService employerService = new EmployerService();
 
         RegisterEmployerDtoRequest request = new RegisterEmployerDtoRequest(
@@ -62,13 +64,13 @@ public class TestEmployerService {
         Map<String, Employer> database = DataBase.getInstance().getDataBaseEmployer();
         assertTrue(database.containsKey(result.getToken()));
         assertEquals(database.get(result.getToken()).getLogin(), "Ivan");
-     /*   assertEquals(database.get(result.getToken()).getAddress(), "ул. Маршала Жукова, 21");
+        assertEquals(database.get(result.getToken()).getAddress(), "ул. Маршала Жукова, 21");
         assertEquals(database.get(result.getToken()).getCompanyName(), "Тамтэк");
         assertEquals(database.get(result.getToken()).getMiddlename(), "");
         assertEquals(database.get(result.getToken()).getLastName(), "Иванов");
         assertEquals(database.get(result.getToken()).getEmail(), "Ivan@ads");
         assertEquals(database.get(result.getToken()).getLogin(), "Ivan");
-        assertEquals(database.get(result.getToken()).getFirstName(), "Иван");*/
+        assertEquals(database.get(result.getToken()).getFirstName(), "Иван");
     }
 
     @Test
@@ -203,7 +205,7 @@ public class TestEmployerService {
         RegisterEmployeeDtoResponse result = gson.fromJson(jsonResult, RegisterEmployeeDtoResponse.class);
 
         Requirements Requirement1 = new Requirements("Java", true, 2);
-        Requirements Requirement2 = new Requirements("C#", false, 4);
+        Requirements Requirement2 = new Requirements("C#", true, 4);
         Requirements Requirement3 = new Requirements("Python", true, 3);
         List<Requirements> Requirement = new ArrayList<>();
         Requirement.add(Requirement1);
@@ -231,6 +233,8 @@ public class TestEmployerService {
     }
     @Test
     public void testGetSummary2() {
+     DataBase.getInstance().getDataBaseEmployee().clear();
+        DataBase.getInstance().getDataBaseSummary(). clear();
         EmployeeService employeeService = new EmployeeService();
         EmployerService employerService = new EmployerService();
 
@@ -277,6 +281,9 @@ public class TestEmployerService {
     }
     @Test
     public void  testGetSummary3(){
+        DataBase.getInstance().getDataBaseEmployee().clear();
+        DataBase.getInstance().getDataBaseSummary(). clear();
+
         EmployeeService employeeService = new EmployeeService();
         EmployerService employerService = new EmployerService();
 
@@ -321,6 +328,9 @@ public class TestEmployerService {
     }
     @Test
     public void  testGetSummary4(){
+        DataBase.getInstance().getDataBaseEmployee().clear();
+        DataBase.getInstance().getDataBaseSummary(). clear();
+
         EmployeeService employeeService = new EmployeeService();
         EmployerService employerService = new EmployerService();
 

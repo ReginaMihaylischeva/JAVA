@@ -28,6 +28,8 @@ public class TestEmployeeService {
 
     @Test
     public void testRegisterEmployee() {
+        DataBase.getInstance().getDataBaseEmployee().clear();
+
         RegisterEmployeeDtoRequest request = new RegisterEmployeeDtoRequest(
                 "Иван", "Ivan", "123456", "Иванов",
                 "", 45, "Ivan@ads", true);
@@ -39,13 +41,13 @@ public class TestEmployeeService {
         Map<String, Employee> database = DataBase.getInstance().getDataBaseEmployee();
         assertTrue(database.containsKey(result.getToken()));
         assertEquals(database.get(result.getToken()).getLogin(), "Ivan");
-     /*   assertEquals(database.get(result.getToken()).getEmail(), "Ivan@ads");
+       assertEquals(database.get(result.getToken()).getEmail(), "Ivan@ads");
         assertEquals(database.get(result.getToken()).getFirstName(), "Иван");
         assertEquals(database.get(result.getToken()).getLastName(), "Иванов");
         assertEquals(database.get(result.getToken()).getMiddlename(), "");
         assertEquals(database.get(result.getToken()).getPassword(), "123456");
         assertEquals(database.get(result.getToken()).getAge(), 45);
-        assertEquals(database.get(result.getToken()).isActivity(), true);*/
+        assertEquals(database.get(result.getToken()).isActivity(), true);
 
 
     }
@@ -114,6 +116,8 @@ public class TestEmployeeService {
 
     @Test
     public void testAddAndEditSummaryWithError() {
+        DataBase.getInstance().getDataBaseSummary(). clear();
+        DataBase.getInstance().getDataBaseEmployee().clear();
         EmployeeService employeeService = new EmployeeService();
 
         RegisterEmployeeDtoRequest Employee1 = new RegisterEmployeeDtoRequest(
@@ -191,6 +195,8 @@ public class TestEmployeeService {
 
     @Test
     public void testGetVacancies2() {
+        DataBase.getInstance().getDataBaseVacancies(). clear();
+        DataBase.getInstance().getDataBaseEmployer().clear();
         EmployeeService employeeService = new EmployeeService();
         EmployerService employerService = new EmployerService();
 
@@ -286,6 +292,8 @@ public class TestEmployeeService {
 
     @Test
     public void  testGetVacancies3(){
+        DataBase.getInstance().getDataBaseVacancies(). clear();
+        DataBase.getInstance().getDataBaseEmployer().clear();
         EmployeeService employeeService = new EmployeeService();
         EmployerService employerService = new EmployerService();
 
@@ -331,6 +339,8 @@ public class TestEmployeeService {
     }
     @Test
     public void  testGetVacancies4(){
+        DataBase.getInstance().getDataBaseVacancies(). clear();
+        DataBase.getInstance().getDataBaseEmployer().clear();
         EmployeeService employeeService = new EmployeeService();
         EmployerService employerService = new EmployerService();
 
