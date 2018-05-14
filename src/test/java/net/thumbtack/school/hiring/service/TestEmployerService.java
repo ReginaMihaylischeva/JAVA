@@ -140,6 +140,8 @@ public class TestEmployerService {
 
     @Test
     public void testDeleteEmployer() {
+        DataBase.getInstance().getDataBaseEmployer().clear();
+
         EmployerService employerService = new EmployerService();
 
         RegisterEmployerDtoRequest Employer1 = new RegisterEmployerDtoRequest(
@@ -187,6 +189,8 @@ public class TestEmployerService {
     }
     @Test
     public void testGetSummary1() {
+        DataBase.getInstance().getDataBaseEmployee().clear();
+
         EmployeeService employeeService = new EmployeeService();
         EmployerService employerService = new EmployerService();
 

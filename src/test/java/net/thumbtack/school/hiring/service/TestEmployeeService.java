@@ -92,6 +92,8 @@ public class TestEmployeeService {
 
     @Test
     public void testAddSummary() {
+        DataBase.getInstance().getDataBaseSummary(). clear();
+        DataBase.getInstance().getDataBaseEmployee().clear();
         EmployeeService employeeService = new EmployeeService();
 
         RegisterEmployeeDtoRequest Employee1 = new RegisterEmployeeDtoRequest(
@@ -152,6 +154,7 @@ public class TestEmployeeService {
 
     @Test
     public void testDeleteEmployee() {
+        DataBase.getInstance().getDataBaseEmployee().clear();
         EmployeeService employeeService = new EmployeeService();
 
         RegisterEmployeeDtoRequest Employee = new RegisterEmployeeDtoRequest(
@@ -245,6 +248,8 @@ public class TestEmployeeService {
 
     @Test
     public void testGetVacancies1() {
+       // DataBase.getInstance().getDataBaseVacancies(). clear();
+      //  DataBase.getInstance().getDataBaseEmployer().clear();
         EmployeeService employeeService = new EmployeeService();
         EmployerService employerService = new EmployerService();
 
