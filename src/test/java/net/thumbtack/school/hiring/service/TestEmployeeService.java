@@ -248,8 +248,8 @@ public class TestEmployeeService {
 
     @Test
     public void testGetVacancies1() {
-       // DataBase.getInstance().getDataBaseVacancies(). clear();
-      //  DataBase.getInstance().getDataBaseEmployer().clear();
+        DataBase.getInstance().getDataBaseVacancies(). clear();
+        DataBase.getInstance().getDataBaseEmployer().clear();
         EmployeeService employeeService = new EmployeeService();
         EmployerService employerService = new EmployerService();
 
