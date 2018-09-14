@@ -1,0 +1,1 @@
+{"dataBaseEmployee":{"8e68f174-32e2-42bc-b37e-eeae31b57fcc":{"firstName":"Иван","lastName":"Иванов","middlename":"","age":45,"email":"Ivan@ads","login":"Ivan","password":"123456","activity":true,"token":"8e68f174-32e2-42bc-b37e-eeae31b57fcc"}},"dataBaseEmployer":{},"dataBaseSummary":{},"dataBaseVacancies":{}}
