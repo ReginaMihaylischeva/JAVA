@@ -342,7 +342,7 @@ public class TestEmployeeService {
         assertEquals(Requirement.get(0).getNameRequirement(),resultGetVacanciese.getVacancies().getFirst().getRequirements().getRequirements().get(0).getNameRequirement() );
         assertEquals(Requirement.get(0).getLevelProficiency(),resultGetVacanciese.getVacancies().getFirst().getRequirements().getRequirements().get(0).getLevelProficiency() );
     }
-    @Test
+  /*  @Test
     public void  testGetVacancies4(){
         DataBase.getInstance().getDataBaseVacancies(). clear();
         DataBase.getInstance().getDataBaseEmployer().clear();
@@ -421,6 +421,6 @@ public class TestEmployeeService {
         assertEquals(Requirement20.get(0).getNameRequirement(),resultGetVacanciese.getVacancies().getFirst().getRequirements().getRequirements().get(0).getNameRequirement() );
         assertEquals(Requirement20.get(1).getNameRequirement(),resultGetVacanciese.getVacancies().getFirst().getRequirements().getRequirements().get(1).getNameRequirement());
         assertEquals(Requirement20.get(2).getNameRequirement(),resultGetVacanciese.getVacancies().getFirst().getRequirements().getRequirements().get(2).getNameRequirement() );
-    }
+    }*/
 
 }

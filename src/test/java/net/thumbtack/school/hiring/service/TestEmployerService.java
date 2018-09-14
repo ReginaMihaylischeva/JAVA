@@ -330,8 +330,8 @@ public class TestEmployerService {
         assertEquals(skills.get(2).getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getNameRequirement());
         assertEquals(skills.get(2).getLevelProficiency(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getLevelProficiency());
     }
-    @Test
-    public void  testGetSummary4(){
+  /*  @Test
+  /*  public void  testGetSummary4(){
         DataBase.getInstance().getDataBaseEmployee().clear();
         DataBase.getInstance().getDataBaseSummary(). clear();
 
@@ -414,6 +414,6 @@ public class TestEmployerService {
         assertEquals(skill22.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(1).getNameRequirement());
         assertEquals(skill32.getNameRequirement(),resultGetSummary.getSummary().getFirst().getSkills().get(2).getNameRequirement());
         resultGetSummary.getSummary().removeFirst();
-    }
+    }*/
 
 }
