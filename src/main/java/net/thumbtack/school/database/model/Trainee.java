@@ -8,6 +8,23 @@ public class Trainee {
     private int rating;
     private int id;
 
+    public Trainee() {
+    }
+
+    public Trainee(int id, String firstName, String lastName, int rating) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setRating(rating);
+        setId(id);
+    }
+
+    public Trainee(String firstName, String lastName, int rating) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setRating(rating);
+        id = 0;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -57,22 +74,7 @@ public class Trainee {
         return Objects.hash(firstName, lastName, rating, id);
     }
 
-    public Trainee() {
-    }
 
-    public Trainee(int id, String firstName, String lastName, int rating) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setRating(rating);
-        setId(id);
-    }
-
-    public Trainee(String firstName, String lastName, int rating) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setRating(rating);
-        id = 0;
-    }
 
 
 }
