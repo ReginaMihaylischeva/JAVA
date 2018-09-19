@@ -32,11 +32,12 @@ public class JdbcService {
     }
 
     public static void updateTrainee(Trainee trainee) throws SQLException {
-        String updateQuery = " UPDATE trainee SET  firstname=?, lastname = ?,rating=?";
+        String updateQuery = " UPDATE trainee SET  firstname=?, lastname = ?,rating=? where id =?";
         try (PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(updateQuery)) {
             stmt.setString(1, trainee.getFirstName());
             stmt.setString(2, trainee.getLastName());
             stmt.setInt(3, trainee.getRating());
+            stmt.setInt(4,trainee.getId());
             stmt.executeUpdate();
         }
     }
@@ -101,11 +102,10 @@ public class JdbcService {
     }
 
     public static void deleteTrainee(Trainee trainee) throws SQLException {
-        String deleteQuery = "DELETE FROM trainee WHERE  firstname=? and lastname=? and rating=?;";
+        String deleteQuery = "DELETE FROM trainee WHERE  id=?;";
         try (PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(deleteQuery)) {
-            stmt.setString(1, trainee.getFirstName());
-            stmt.setString(2, trainee.getLastName());
-            stmt.setInt(3, trainee.getRating());
+            stmt.setInt(1, trainee.getId());
+
 
 
             stmt.executeUpdate();
