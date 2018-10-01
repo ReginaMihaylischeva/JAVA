@@ -167,6 +167,7 @@ public class JdbcService {
 
     public static void insertSchool(School school) throws SQLException {
         String insertQuery = "INSERT INTO school VALUES (?,?,?)";
+
         try (PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(insertQuery, RETURN_GENERATED_KEYS)) {
             stmt.setNull(1, java.sql.Types.INTEGER);
             stmt.setString(2, school.getName());
@@ -179,7 +180,7 @@ public class JdbcService {
     }
 
     public static School getSchoolByIdUsingColNames(int schoolId) throws SQLException {
-        String getSubjectByIdUsingColNames = "SELECT id, name,year FROM school WHERE id = ?";
+        String getSubjectByIdUsingColNames = "SELECT id, name,year,room,name FROM school WHERE id = ?";
         try (PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(getSubjectByIdUsingColNames)) {
             stmt.setInt(1, schoolId);
 
