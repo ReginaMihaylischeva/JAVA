@@ -180,7 +180,7 @@ public class JdbcService {
     }
 
     public static School getSchoolByIdUsingColNames(int schoolId) throws SQLException {
-        String getSubjectByIdUsingColNames = "SELECT id, name,year,room,name FROM school WHERE id = ?";
+        String getSubjectByIdUsingColNames = "SELECT id, name,year,name FROM school WHERE id = ?";
         try (PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(getSubjectByIdUsingColNames)) {
             stmt.setInt(1, schoolId);
 
