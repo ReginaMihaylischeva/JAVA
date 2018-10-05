@@ -229,10 +229,9 @@ public class JdbcService {
     }
 
     public static School getSchoolByIdWithGroups(int id) throws SQLException {
-        String getSchoolByIdWithGroupsQuery = "SELECT * FROM ttschool.groupe  join ttschool.school on (schoolid=ttschool.school.id=?) group by school.id,groupe.id";
+        String getSchoolByIdWithGroupsQuery = "SELECT * FROM ttschool.school left join ttschool.groupe on ( schoolid=ttschool.school.id ) where school.id=?";
         try (PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(getSchoolByIdWithGroupsQuery)) {
             stmt.setInt(1, id);
-
             ResultSet rs = stmt.executeQuery();
             List<Group> Group = new ArrayList<>();
             if (rs.wasNull()) {
@@ -241,14 +240,17 @@ public class JdbcService {
 
             while (!rs.isLast()) {
                 rs.next();
-                Group.add(new Group(rs.getInt("id"), rs.getString("name"), rs.getString("room")));
+                int idGroupe =rs.getInt("groupe.id");
+                if (idGroupe!=0) {
+                    Group.add(new Group(idGroupe, rs.getString("groupe.name"), rs.getString("room")));
+                }
             }
             return new School(rs.getInt("school.id"), rs.getString("school.name"), rs.getInt("year"), Group);
         }
     }
 
     public static List<School> getSchoolsWithGroups() throws SQLException {
-        String getSchoolByIdWithGroupsQuery = "SELECT * FROM ttschool.groupe  join ttschool.school on (schoolid=ttschool.school.id) group by school.id,groupe.id";
+        String getSchoolByIdWithGroupsQuery = "SELECT * FROM ttschool.school left join ttschool.groupe on ( schoolid=ttschool.school.id );";
         try (PreparedStatement stmt = JdbcUtils.getConnection().prepareStatement(getSchoolByIdWithGroupsQuery);
              ResultSet rs = stmt.executeQuery(getSchoolByIdWithGroupsQuery)) {
             List<School> School = new ArrayList<>();
@@ -263,12 +265,15 @@ public class JdbcService {
             }
             rs.beforeFirst();
             while (rs.next()) {
+                int idGroupe =rs.getInt("groupe.id");
+                if (idGroupe!=0) {
+                    Group group = new Group(idGroupe, rs.getString("groupe.name"), rs.getString("room"));
 
-                Group group = new Group(rs.getInt("groupe.id"), rs.getString("name"), rs.getString("room"));
-                for (int i = 0; i < School.size(); i++) {
+                    for (int i = 0; i < School.size(); i++) {
 
-                    if (School.get(i).getId() == rs.getInt("schoolid")) {
-                        School.get(i).getGroups().add(group);
+                        if (School.get(i).getId() == rs.getInt("schoolid")) {
+                            School.get(i).getGroups().add(group);
+                        }
                     }
                 }
             }

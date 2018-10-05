@@ -132,6 +132,26 @@ public class TestJdbcService {
     }
 
     @Test
+    public void testInsertSchoolAndGroupsEmpty() throws SQLException {
+        School school = new School("TTSchool", 2018);
+        JdbcService.insertSchool(school);
+        School schoolFromDBByColNames = JdbcService.getSchoolByIdUsingColNames(school.getId());
+        assertEquals(school, schoolFromDBByColNames);
+        Group groupFrontEnd = new Group("Frontend", "11");
+        Group groupBackEnd = new Group("Backend", "12");
+        JdbcService.insertGroup(school, groupFrontEnd);
+        JdbcService.insertGroup(school, groupBackEnd);
+        List<Group> groups = new ArrayList<>();
+        groups.add(groupFrontEnd);
+        groups.add(groupBackEnd);
+        school.setGroups(groups);
+       // School school1 = new School("TTSchool", 2019);
+       // JdbcService.insertSchool(school1);
+        School schoolFromDBWithGroups = JdbcService.getSchoolByIdWithGroups(school.getId());
+        assertEquals(school, schoolFromDBWithGroups);
+    }
+
+    @Test
     public void testInsertTwoSchoolsAndGroups() throws SQLException {
         School school2018 = new School("TTSchool2018", 2018);
         JdbcService.insertSchool(school2018);
@@ -160,6 +180,8 @@ public class TestJdbcService {
         List<School> schools = new ArrayList<>();
         schools.add(school2018);
         schools.add(school2019);
+       // School school1 = new School("TTSchool", 2019);
+       // JdbcService.insertSchool(school1);
         List<School> schoolsFromDBWithGroups = JdbcService.getSchoolsWithGroups();
         assertEquals(schools, schoolsFromDBWithGroups);
     }
